@@ -1,4 +1,4 @@
-# Project_2._5
+# Project_2_5
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.2.
 

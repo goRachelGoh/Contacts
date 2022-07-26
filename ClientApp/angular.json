@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "Project_2._5": {
+    "Project_2_5": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -23,9 +23,7 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "assets": [
-              "src/assets"
-            ],
+            "assets": ["src/assets"],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css"
@@ -69,10 +67,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "Project_2._5:build:production"
+              "browserTarget": "Project_2_5:build:production"
             },
             "development": {
-              "browserTarget": "Project_2._5:build:development",
+              "browserTarget": "Project_2_5:build:development",
               "proxyConfig": "proxy.conf.js"
             }
           },
@@ -81,7 +79,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Project_2._5:build"
+            "browserTarget": "Project_2_5:build"
           }
         },
         "test": {
@@ -91,12 +89,8 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "assets": [
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.css"
-            ],
+            "assets": ["src/assets"],
+            "styles": ["src/styles.css"],
             "scripts": []
           }
         },
@@ -129,5 +123,5 @@
       }
     }
   },
-  "defaultProject": "Project_2._5"
+  "defaultProject": "Project_2_5"
 }

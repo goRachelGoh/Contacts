@@ -1,4 +1,4 @@
-namespace Project_2._5;
+namespace Project_2_5;
 
 public class Email
 {

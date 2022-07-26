@@ -3,11 +3,11 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Project_2._5;
+using Project_2_5;
 
 #nullable disable
 
-namespace Project_2._5.Migrations
+namespace Project_2_5.Migrations
 {
     [DbContext(typeof(ContactsContext))]
     partial class ContactsContextModelSnapshot : ModelSnapshot
@@ -22,7 +22,7 @@ namespace Project_2._5.Migrations
 
             MySqlModelBuilderExtensions.HasCharSet(modelBuilder, "utf8mb4");
 
-            modelBuilder.Entity("Project_2._5.Address", b =>
+            modelBuilder.Entity("Project_2_5.Address", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -50,7 +50,7 @@ namespace Project_2._5.Migrations
                     b.ToTable("Addresses");
                 });
 
-            modelBuilder.Entity("Project_2._5.Contact", b =>
+            modelBuilder.Entity("Project_2_5.Contact", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -67,7 +67,7 @@ namespace Project_2._5.Migrations
                     b.ToTable("Contacts");
                 });
 
-            modelBuilder.Entity("Project_2._5.Email", b =>
+            modelBuilder.Entity("Project_2_5.Email", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -86,7 +86,7 @@ namespace Project_2._5.Migrations
                     b.ToTable("EmailAddresses");
                 });
 
-            modelBuilder.Entity("Project_2._5.Phone", b =>
+            modelBuilder.Entity("Project_2_5.Phone", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -105,9 +105,9 @@ namespace Project_2._5.Migrations
                     b.ToTable("PhoneNumbers");
                 });
 
-            modelBuilder.Entity("Project_2._5.Address", b =>
+            modelBuilder.Entity("Project_2_5.Address", b =>
                 {
-                    b.HasOne("Project_2._5.Contact", "Contact")
+                    b.HasOne("Project_2_5.Contact", "Contact")
                         .WithMany("Addresses")
                         .HasForeignKey("ContactId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -116,9 +116,9 @@ namespace Project_2._5.Migrations
                     b.Navigation("Contact");
                 });
 
-            modelBuilder.Entity("Project_2._5.Email", b =>
+            modelBuilder.Entity("Project_2_5.Email", b =>
                 {
-                    b.HasOne("Project_2._5.Contact", "Contact")
+                    b.HasOne("Project_2_5.Contact", "Contact")
                         .WithMany("EmailAddresses")
                         .HasForeignKey("ContactId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -127,9 +127,9 @@ namespace Project_2._5.Migrations
                     b.Navigation("Contact");
                 });
 
-            modelBuilder.Entity("Project_2._5.Phone", b =>
+            modelBuilder.Entity("Project_2_5.Phone", b =>
                 {
-                    b.HasOne("Project_2._5.Contact", "Contact")
+                    b.HasOne("Project_2_5.Contact", "Contact")
                         .WithMany("PhoneNumbers")
                         .HasForeignKey("ContactId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -138,7 +138,7 @@ namespace Project_2._5.Migrations
                     b.Navigation("Contact");
                 });
 
-            modelBuilder.Entity("Project_2._5.Contact", b =>
+            modelBuilder.Entity("Project_2_5.Contact", b =>
                 {
                     b.Navigation("Addresses");
 
