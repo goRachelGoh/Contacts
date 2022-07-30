@@ -7,9 +7,19 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
+import { ContactsService } from './contacts/contacts.service';
+import { NewContactsComponent } from './new-contacts/new-contacts.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent, pathMatch: 'full' },
+  // {
+  //   path: 'fetch-data',
+  //   component: ContactsListComponent,
+  //   pathMatch: 'full',
+  //   resolve: { contacts: ContactsService },
+  // },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
+  { path: 'new', component: NewContactsComponent },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

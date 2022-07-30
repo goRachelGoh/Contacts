@@ -1,0 +1,40 @@
+<form class="px-10 w-75 m-auto">
+  <div><h1 class="text-2xl pb-4">Add Contact</h1></div>
+  <div class="flex flex-col">
+    <div class="pt-2 pb-1">First Name</div>
+    <input type="text" id="firstname" name="firstname" />
+  </div>
+  <div class="flex flex-col">
+    <div class="pt-2 pb-1">Last Name</div>
+    <input type="text" id="lastname" name="lastname" />
+  </div>
+  <div class="flex flex-col">
+    <div class="pt-2 pb-1">Address</div>
+    <input type="text" id="address" name="address" />
+  </div>
+
+  <div class="flex flex-row space-x-4 justify-between">
+    <div class="flex flex-col w-50">
+      <div class="pt-2 pb-1">City</div>
+      <input type="text" id="city" name="city" />
+    </div>
+    <div class="flex flex-col w-25">
+      <div class="pt-2 pb-1">State</div>
+      <input type="text" id="state" name="state" />
+    </div>
+    <div class="flex flex-col w-25">
+      <div class="pt-2 pb-1">Zipcode</div>
+      <input type="text" id="zipcode" name="zipcode" />
+    </div>
+  </div>
+
+  <div class="pt-2 pb-1">Email</div>
+  <input type="text" id="email" name="email" class="w-100" />
+  <div class="pt-2 pb-1">Phone</div>
+  <input type="text" id="phone" name="phone" class="w-100" />
+  <div class="flex flex-row justify-between pt-10">
+    <button class="w-20 rounded-lg bg-emerald-500 p-2">Submit</button>
+    <!-- if submit is clicked display "successully added to our list!" -->
+    <button class="w-20 rounded-lg bg-rose-500 p-2" type="reset">Clear</button>
+  </div>
+</form>
