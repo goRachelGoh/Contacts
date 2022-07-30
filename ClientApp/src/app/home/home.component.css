@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+input {
+  color: #334155;
+  padding: 2px;
+  border-radius: 4px;
+}

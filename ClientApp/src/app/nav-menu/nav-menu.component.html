@@ -2,7 +2,7 @@
   <nav
     class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
   >
-    <div class="container">
+    <div class="flex flex-row">
       <a class="navbar-brand" [routerLink]="['/']">Project_2_5</a>
       <button
         class="navbar-toggler"
@@ -19,7 +19,7 @@
         class="navbar-collapse collapse d-sm-inline-flex justify-content-end"
         [ngClass]="{ show: isExpanded }"
       >
-        <ul class="navbar-nav flex-grow">
+        <ul class="flex flex-row">
           <li
             class="nav-item"
             [routerLinkActive]="['link-active']"
