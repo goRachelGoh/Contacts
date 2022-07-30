@@ -21,6 +21,6 @@ export class ContactsService implements Resolve<any[]> {
   }
 
   public getContacts(): Observable<any[]> {
-    return this.http.get<any[]>('/contacts');
+    return this.http.get<any[]>('/api/contacts');
   }
 }
