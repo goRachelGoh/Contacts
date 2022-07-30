@@ -14,15 +14,18 @@ const routes: Routes = [
   // {
   //   path: 'fetch-data',
   //   component: ContactsListComponent,
-  //   pathMatch: 'full',
+  // //   pathMatch: 'full',
   //   resolve: { contacts: ContactsService },
   // },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
+  {
+    path: 'home',
+    component: HomeComponent,
+  },
   { path: 'new', component: NewContactsComponent },
 ];
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
