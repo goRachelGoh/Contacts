@@ -4,7 +4,7 @@ using Project_2_5.Repositories;
 
 namespace Project_2_5.Controllers;
 
-
+[Route("api/contacts")]
 public class ContactController : Controller
 {
     private readonly ILogger<ContactController> _logger;
@@ -17,7 +17,7 @@ public class ContactController : Controller
     }
 
     [HttpGet]   
-    [Route("/contacts")]
+    [Route("")]
     public IEnumerable<Contact> Get()
     {
         return this.contactRepository.GetContacts();

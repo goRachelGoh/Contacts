@@ -6,7 +6,8 @@ using Microsoft.EntityFrameworkCore;
 internal class Program
 {
     private static void Main(string[] args)
-    {
+    { 
+
         var builder = WebApplication.CreateBuilder(args);
 
         // Add services to the container.
@@ -27,7 +28,6 @@ internal class Program
         app.UseHttpsRedirection();
         app.UseStaticFiles();
         app.UseRouting();
-
 
         app.MapControllerRoute(
             name: "default",
