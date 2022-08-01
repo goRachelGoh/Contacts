@@ -1,3 +1,30 @@
 <!-- shows the entire list of contacts? -->
 
-<h1>detail list</h1>
+<table class="m-auto table-fixed text-white">
+  <thead>
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Address</th>
+      <th>City</th>
+      <th>State</th>
+      <th>Zipcode</th>
+      <th>Email</th>
+      <th>Phone</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let contact of contactsList; index as i">
+      <td>{{ contact.firstName }}</td>
+      <td>{{ contact.lastName }}</td>
+      <td>{{ contact.address }}</td>
+      <td>{{ contact.city }}</td>
+      <td>{{ contact.state }}</td>
+      <td>{{ contact.zipcode }}</td>
+      <td>{{ contact.email }}</td>
+      <td>{{ contact.phone }}</td>
+      <button><fa-icon [icon]="faPencil"></fa-icon></button>
+      <button><fa-icon [icon]="faTrashCan"></fa-icon></button>
+    </tr>
+  </tbody>
+</table>

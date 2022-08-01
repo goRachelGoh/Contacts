@@ -9,18 +9,14 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { ContactsService } from './contacts/contacts.service';
 import { NewContactsComponent } from './new-contacts/new-contacts.component';
+import { ContactsListComponent } from './contacts/contacts-list/contacts-list.component';
 
 const routes: Routes = [
-  // {
-  //   path: 'fetch-data',
-  //   component: ContactsListComponent,
-  // //   pathMatch: 'full',
-  //   resolve: { contacts: ContactsService },
-  // },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   {
     path: 'home',
     component: HomeComponent,
+    resolve: { contacts: ContactsService },
   },
   { path: 'new', component: NewContactsComponent },
 ];
