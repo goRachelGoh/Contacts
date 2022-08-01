@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
+import { faPencil, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-contacts-list',
@@ -7,12 +8,15 @@ import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
   styleUrls: ['./contacts-list.component.css'],
 })
 export class ContactsListComponent implements OnInit {
+  public faPencil = faPencil;
+  public faTrashCan = faTrashCan;
+
   public contactsList: any[] = [];
 
-  constructor(private activatedRoute: ActivatedRouteSnapshot) {}
+  constructor(private activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.contactsList = this.activatedRoute.data.contacts;
+    this.contactsList = this.activatedRoute.snapshot.data.contacts;
     console.log(this.contactsList);
   }
 }

@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ContactsModule } from './contacts/contacts.module';
 import { NewContactsComponent } from './new-contacts/new-contacts.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [AppComponent, NavMenuComponent, HomeComponent, NewContactsComponent],
@@ -19,6 +20,7 @@ import { NewContactsComponent } from './new-contacts/new-contacts.component';
     FormsModule,
     AppRoutingModule,
     ContactsModule,
+    FontAwesomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
