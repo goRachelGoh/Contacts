@@ -1,30 +1,37 @@
 <!-- shows the entire list of contacts? -->
 
-<table class="m-auto table-fixed text-white">
+<table class="m-auto w-full table-fixed text-white">
   <thead>
-    <tr>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Address</th>
-      <th>City</th>
-      <th>State</th>
-      <th>Zipcode</th>
-      <th>Email</th>
-      <th>Phone</th>
+    <tr class="border-b-2 border-slate-300">
+      <th class="p-2 text-center">First Name</th>
+      <th class="p-2 text-center">Last Name</th>
+      <th class="p-2 text-center">Address</th>
+      <th class="p-2 text-center">City</th>
+      <th class="p-2 text-center">State</th>
+      <th class="p-2 text-center">Zipcode</th>
+      <th class="p-2 text-center">Email</th>
+      <th class="p-2 text-center">Phone</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let contact of contactsList; index as i">
-      <td>{{ contact.firstName }}</td>
-      <td>{{ contact.lastName }}</td>
-      <td>{{ contact.address }}</td>
-      <td>{{ contact.city }}</td>
-      <td>{{ contact.state }}</td>
-      <td>{{ contact.zipcode }}</td>
-      <td>{{ contact.email }}</td>
-      <td>{{ contact.phone }}</td>
-      <button><fa-icon [icon]="faPencil"></fa-icon></button>
-      <button><fa-icon [icon]="faTrashCan"></fa-icon></button>
+    <tr
+      *ngFor="let contact of contactsList; index as i"
+      class="border-b-2 border-slate-300"
+    >
+      <td class="p-2 text-center">{{ contact.firstName }}</td>
+      <td class="p-2 text-center">{{ contact.lastName }}</td>
+      <td class="p-2 text-center">{{ contact.address }}</td>
+      <td class="p-2 text-center">{{ contact.city }}</td>
+      <td class="p-2 text-center">{{ contact.state }}</td>
+      <td class="p-2 text-center">{{ contact.zipcode }}</td>
+      <td class="p-2 text-center">{{ contact.email }}</td>
+      <td class="p-2 text-center">{{ contact.phone }}</td>
+      <button class="p-2 text-center">
+        <fa-icon [icon]="faPencil"></fa-icon>
+      </button>
+      <button class="p-2 text-center">
+        <fa-icon [icon]="faTrashCan"></fa-icon>
+      </button>
     </tr>
   </tbody>
 </table>
