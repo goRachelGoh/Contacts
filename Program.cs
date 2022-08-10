@@ -1,4 +1,5 @@
 using Project_2_5.Repositories;
+using Project_2_5.Services;
 using Project_2_5;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +15,7 @@ internal class Program
         builder.Services.AddDbContext<ContactsContext>(options =>
          options.UseMySql("server=localhost;port=3306;user=admin;password=UsTerAbLotoP;database=Contacts", Microsoft.EntityFrameworkCore.ServerVersion.Parse("10.8.3-mariadb")));  
         builder.Services.AddScoped<IContactRepository,ContactRepository>();
+        builder.Services.AddScoped<IContactService,ContactService>();
         builder.Services.AddControllersWithViews();
         
         var app = builder.Build();

@@ -1,5 +1,5 @@
 using Project_2_5;
-
+using Microsoft.EntityFrameworkCore;
 namespace Project_2_5.Repositories;
 
 public class ContactRepository : IContactRepository
@@ -10,8 +10,22 @@ public class ContactRepository : IContactRepository
       this.context = context;  
     }
 
-    public IList<Contact> GetContacts()
+    async public Task<IList<Contact>> GetContacts()
     {
-        return this.context.Contacts.ToList();
+        return await this.context.Contacts
+        // .Include(contact=>contact.Addresses)
+        // .Include(contact=>contact.EmailAddresses)
+        // .Include(contact=>contact.PhoneNumbers)
+        .ToListAsync();
     }
+
+      async public Task<Contact> GetContactbyID(Guid id)
+  {
+      return await this.context.Contacts
+      .Where(contact => contact.Id == id)
+      .Include(contact=>contact.Addresses)
+      .Include(contact=>contact.EmailAddresses)
+      .Include(contact=>contact.PhoneNumbers)
+      .FirstAsync();
+  }
 }

@@ -8,6 +8,6 @@ public class Address
     public string? State { get; set; }
     public string? ZipCode { get; set; }
     public Guid ContactId { get; set; }
-    public Contact Contact { get; set; }
+    public Contact? Contact { get; set; }
 }
 
