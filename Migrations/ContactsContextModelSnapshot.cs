@@ -16,11 +16,8 @@ namespace Project_2_5.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .UseCollation("utf8mb4_general_ci")
                 .HasAnnotation("ProductVersion", "6.0.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
-
-            MySqlModelBuilderExtensions.HasCharSet(modelBuilder, "utf8mb4");
 
             modelBuilder.Entity("Project_2_5.Address", b =>
                 {
@@ -110,7 +107,7 @@ namespace Project_2_5.Migrations
                     b.HasOne("Project_2_5.Contact", "Contact")
                         .WithMany("Addresses")
                         .HasForeignKey("ContactId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Contact");
@@ -121,7 +118,7 @@ namespace Project_2_5.Migrations
                     b.HasOne("Project_2_5.Contact", "Contact")
                         .WithMany("EmailAddresses")
                         .HasForeignKey("ContactId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Contact");
@@ -132,7 +129,7 @@ namespace Project_2_5.Migrations
                     b.HasOne("Project_2_5.Contact", "Contact")
                         .WithMany("PhoneNumbers")
                         .HasForeignKey("ContactId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Contact");

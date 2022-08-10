@@ -12,17 +12,25 @@ public class ContactService : IContactService
       this.context = context;  
     }
 
-    async public Task<ActionResult<IList<Contact>>> DeleteContact(Guid id)
+    async public Task DeleteContact(Contact contact)
     {
-      var contact = await context.Contacts.FindAsync(id);
-      if(contact == null)
+      var transaction = await context.Database.BeginTransactionAsync();
+      try 
       {
-        return NotFound();
-      }
+        context.Addresses.RemoveRange(contact.Addresses);
+        await context.SaveChangesAsync(); 
+        context.PhoneNumbers.RemoveRange(contact.PhoneNumbers);
+        await context.SaveChangesAsync(); 
+        context.EmailAddresses.RemoveRange(contact.EmailAddresses);
+        await context.SaveChangesAsync();
+        context.Contacts.Remove(contact);
+        await context.SaveChangesAsync();      
 
-      context.Contacts.Remove(contact);
-      context.SaveChanges();
-      return contact;
-      
+        await context.Database.CommitTransactionAsync();
+      }
+    catch (Exception)
+    {
+      await transaction.RollbackAsync();
     }
+} 
 }

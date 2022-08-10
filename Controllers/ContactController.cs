@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Project_2_5.Repositories;
 using Project_2_5.Services;
-
+using Microsoft.EntityFrameworkCore;
 
 namespace Project_2_5.Controllers;
 
@@ -29,8 +29,14 @@ public class ContactController : ControllerBase
 
     [HttpDelete]   
     [Route("{id:Guid}")]
-    async public Task<IList<Contact>> Delete(Guid id)
+    async public Task<ActionResult<Contact>> Delete(Guid id)
     {
-        return await this.contactService.DeleteContact(id);
+        var contact = await contactRepository.GetContactbyID(id);
+        if(contact == null)
+        {
+            return NotFound();
+        }
+        await this.contactService.DeleteContact(contact);
+        return Ok();
     }
 }
