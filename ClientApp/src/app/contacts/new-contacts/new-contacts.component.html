@@ -6,44 +6,73 @@
   <div><h1 class="text-2xl pb-4">Add Contact</h1></div>
   <div class="flex flex-col">
     <label for="firstname" class="pt-2 pb-1">First Name</label>
-    <input type="text" id="firstname" formControlName="firstName" />
+    <input
+      type="text"
+      id="firstname"
+      [formControl]="contactForm.get('firstName') | asFormControl"
+    />
   </div>
   <div class="flex flex-col">
     <div class="pt-2 pb-1">Last Name</div>
-    <input type="text" id="lastname" formControlName="lastName" />
+    <input
+      type="text"
+      id="lastname"
+      [formControl]="contactForm.get('lastName') | asFormControl"
+    />
   </div>
-  <div formGroupName="address">
+  <div>
     <h2 lass="pt-5 pb-1">Address</h2>
     <div class="flex flex-col">
       <div class="pt-2 pb-1">Street Address</div>
-      <input type="text" id="address" formControlName="streetAddress" />
+      <input
+        type="text"
+        id="address"
+        [formControl]="contactForm.get('address.streetAddress') | asFormControl"
+      />
     </div>
 
     <div class="flex flex-row space-x-4 justify-between">
       <div class="flex flex-col w-3/6">
         <div class="pt-2 pb-1">City</div>
-        <input type="text" id="city" formControlName="city" />
+        <input
+          type="text"
+          id="city"
+          [formControl]="contactForm.get('address.city') | asFormControl"
+        />
       </div>
       <div class="flex flex-col w-2/6">
         <div class="pt-2 pb-1">State</div>
-        <input type="text" id="state" formControlName="state" />
+        <input
+          type="text"
+          id="state"
+          [formControl]="contactForm.get('address.state') | asFormControl"
+        />
       </div>
       <div class="flex flex-col w-2/6">
         <div class="pt-2 pb-1">Zipcode</div>
-        <input type="text" id="zipcode" formControlName="zipcode" />
+        <input
+          type="text"
+          id="zipcode"
+          [formControl]="contactForm.get('address.zipcode') | asFormControl"
+        />
       </div>
     </div>
   </div>
 
-  <div formGroupName="contactInfo">
+  <div>
     <h2>Contact Detail</h2>
     <div class="pt-2 pb-1">Email</div>
-    <input type="text" id="email" formControlName="email" class="w-full" />
+    <input
+      type="text"
+      id="email"
+      [formControl]="contactForm.get('contactInfo.email') | asFormControl"
+      class="w-full"
+    />
     <div class="pt-2 pb-1">Phone</div>
     <input
       type="text"
       id="phone"
-      formControlName="phoneNumber"
+      [formControl]="contactForm.get('contactInfo.phoneNumber') | asFormControl"
       class="w-full"
     />
   </div>
