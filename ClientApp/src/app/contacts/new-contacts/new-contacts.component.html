@@ -23,39 +23,44 @@
   <div>
     <h2 lass="pt-5 pb-1">Address</h2>
     <div class="flex flex-col">
-      <div class="pt-2 pb-1">Street Address</div>
-      <input
-        type="text"
-        id="address"
-        [formControl]="contactForm.get('address.streetAddress') | asFormControl"
-      />
-    </div>
+      <div
+        *ngFor="let group of contactForm.get('addresses') | asFormGroupArray"
+      >
+        <div class="pt-2 pb-1">Street Address</div>
+        <input
+          type="text"
+          id="address"
+          [formControl]="group.get('streetAddress') | asFormControl"
+        />
 
-    <div class="flex flex-row space-x-4 justify-between">
-      <div class="flex flex-col w-3/6">
-        <div class="pt-2 pb-1">City</div>
-        <input
-          type="text"
-          id="city"
-          [formControl]="contactForm.get('address.city') | asFormControl"
-        />
+        <div class="flex flex-row space-x-4 justify-between">
+          <div class="flex flex-col w-3/6">
+            <div class="pt-2 pb-1">City</div>
+            <input
+              type="text"
+              id="city"
+              [formControl]="group.get('city') | asFormControl"
+            />
+          </div>
+          <div class="flex flex-col w-2/6">
+            <div class="pt-2 pb-1">State</div>
+            <input
+              type="text"
+              id="state"
+              [formControl]="group.get('state') | asFormControl"
+            />
+          </div>
+          <div class="flex flex-col w-2/6">
+            <div class="pt-2 pb-1">Zipcode</div>
+            <input
+              type="text"
+              id="zipcode"
+              [formControl]="group.get('zipcode') | asFormControl"
+            />
+          </div>
+        </div>
       </div>
-      <div class="flex flex-col w-2/6">
-        <div class="pt-2 pb-1">State</div>
-        <input
-          type="text"
-          id="state"
-          [formControl]="contactForm.get('address.state') | asFormControl"
-        />
-      </div>
-      <div class="flex flex-col w-2/6">
-        <div class="pt-2 pb-1">Zipcode</div>
-        <input
-          type="text"
-          id="zipcode"
-          [formControl]="contactForm.get('address.zipcode') | asFormControl"
-        />
-      </div>
+      <button type="button" (click)="addAddress()">Add a row</button>
     </div>
   </div>
 

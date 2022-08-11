@@ -18,7 +18,7 @@ export class NewContactsComponent implements OnInit {
   public contactForm = this.formBuilder.group({
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
-    addresses: this.formBuilder.array([]),
+    addresses: this.formBuilder.array([this.buildAddressForm()]),
     emailAddresses: this.formBuilder.array([this.buildEmailForm()]),
     phoneNumbers: this.formBuilder.array([this.buildPhoneNumberForm()]),
   });
@@ -71,5 +71,10 @@ export class NewContactsComponent implements OnInit {
   public addPhoneNumber() {
     const phoneNumbers = this.contactForm.get('phoneNumbers') as FormArray;
     phoneNumbers.push(this.buildPhoneNumberForm());
+  }
+
+  public addAddress() {
+    const addresses = this.contactForm.get('addresses') as FormArray;
+    addresses.push(this.buildAddressForm());
   }
 }
