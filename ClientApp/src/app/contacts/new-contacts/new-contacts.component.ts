@@ -20,7 +20,7 @@ export class NewContactsComponent implements OnInit {
     }),
     contactInfo: this.formBuilder.group({
       email: ['', Validators.required],
-      phone: ['', Validators.required],
+      phoneNumber: ['', Validators.required],
     }),
   });
 

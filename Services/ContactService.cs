@@ -41,6 +41,8 @@ public class ContactService : IContactService
       {
         await context.Contacts.AddAsync(contact);
         await context.SaveChangesAsync();
+
+        await context.Database.CommitTransactionAsync();
       }
       catch (Exception)
       {
