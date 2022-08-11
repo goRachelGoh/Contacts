@@ -22,16 +22,6 @@ export class NewContactsComponent implements OnInit {
     addresses: this.formBuilder.array([this.buildAddressForm()]),
     emailAddresses: this.formBuilder.array([this.buildEmailForm()]),
     phoneNumbers: this.formBuilder.array([this.buildPhoneNumberForm()]),
-    address: this.formBuilder.group({
-      streetAddress: ['', Validators.required],
-      city: ['', Validators.required],
-      state: ['', Validators.required],
-      zipcode: ['', Validators.required],
-    }),
-    contactInfo: this.formBuilder.group({
-      email: ['', Validators.required],
-      phone: ['', Validators.required],
-    }),
   });
 
   constructor(

@@ -39,11 +39,9 @@ export class ContactsService implements Resolve<any[]> {
 
   public addContact(contact: any): Observable<any[]> {
     const url = `${this.url}`;
-<<<<<<< HEAD
     return this.http.post<any>(url, contact);
-=======
+
     return this.http.post<any[]>(url, contact);
->>>>>>> 512ee167371211bf13af3c68d4529f8973ba095d
   }
 
   // public updateContact(contact: any): Observable<any[]> {
