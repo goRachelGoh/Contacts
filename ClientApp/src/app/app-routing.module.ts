@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { ContactsService } from './contacts/contacts.service';
-import { NewContactsComponent } from './new-contacts/new-contacts.component';
+import { NewContactsComponent } from './contacts/new-contacts/new-contacts.component';
 import { ContactsListComponent } from './contacts/contacts-list/contacts-list.component';
 
 const routes: Routes = [

@@ -30,7 +30,10 @@
         <fa-icon [icon]="faPencil"></fa-icon>
       </button>
       <button class="p-2 text-center">
-        <fa-icon [icon]="faTrashCan"></fa-icon>
+        <fa-icon [icon]="faSave"></fa-icon>
+      </button>
+      <button class="p-2 text-center">
+        <fa-icon [icon]="faTrashCan" (click)="onDelete(contact)"></fa-icon>
       </button>
     </tr>
   </tbody>
