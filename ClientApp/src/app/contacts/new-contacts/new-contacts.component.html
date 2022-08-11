@@ -62,12 +62,18 @@
   <div>
     <h2>Contact Detail</h2>
     <div class="pt-2 pb-1">Email</div>
-    <input
-      type="text"
-      id="email"
-      [formControl]="contactForm.get('contactInfo.email') | asFormControl"
-      class="w-full"
-    />
+    <div
+      *ngFor="let group of contactForm.get('emailAddresses') | asFormGroupArray"
+    >
+      <input
+        type="text"
+        id="email"
+        [formControl]="group.get('emailAddress') | asFormControl"
+        class="w-full"
+      />
+    </div>
+    <button type="button" (click)="addEmailAddress()">Add a row</button>
+
     <div class="pt-2 pb-1">Phone</div>
     <input
       type="text"

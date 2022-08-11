@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm, FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import {
+  NgForm,
+  FormControl,
+  FormGroup,
+  FormBuilder,
+  FormArray,
+} from '@angular/forms';
 import { ContactsService } from '../contacts.service';
 import { Validators } from '@angular/forms';
 
@@ -13,7 +19,7 @@ export class NewContactsComponent implements OnInit {
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
     addresses: this.formBuilder.array([]),
-    emailAddresses: this.formBuilder.array([]),
+    emailAddresses: this.formBuilder.array([this.buildEmailForm()]),
     phoneNumbers: this.formBuilder.array([]),
   });
 
@@ -55,5 +61,10 @@ export class NewContactsComponent implements OnInit {
     return this.formBuilder.group({
       phoneNumber: ['', Validators.required],
     });
+  }
+
+  public addEmailAddress() {
+    const emailAddresses = this.contactForm.get('emailAddresses') as FormArray;
+    emailAddresses.push(this.buildEmailForm());
   }
 }
