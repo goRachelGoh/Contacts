@@ -75,12 +75,17 @@
     <button type="button" (click)="addEmailAddress()">Add a row</button>
 
     <div class="pt-2 pb-1">Phone</div>
-    <input
-      type="text"
-      id="phone"
-      [formControl]="contactForm.get('contactInfo.phoneNumber') | asFormControl"
-      class="w-full"
-    />
+    <div
+      *ngFor="let group of contactForm.get('phoneNumbers') | asFormGroupArray"
+    >
+      <input
+        type="text"
+        id="phone"
+        [formControl]="group.get('phoneNumber') | asFormControl"
+        class="w-full"
+      />
+    </div>
+    <button type="button" (click)="addPhoneNumber()">Add a row</button>
   </div>
   <div class="flex flex-row justify-between pt-10">
     <button type="submit" class="w-20 rounded-lg bg-emerald-500 p-2">

@@ -20,7 +20,7 @@ export class NewContactsComponent implements OnInit {
     lastName: ['', Validators.required],
     addresses: this.formBuilder.array([]),
     emailAddresses: this.formBuilder.array([this.buildEmailForm()]),
-    phoneNumbers: this.formBuilder.array([]),
+    phoneNumbers: this.formBuilder.array([this.buildPhoneNumberForm()]),
   });
 
   constructor(
@@ -66,5 +66,10 @@ export class NewContactsComponent implements OnInit {
   public addEmailAddress() {
     const emailAddresses = this.contactForm.get('emailAddresses') as FormArray;
     emailAddresses.push(this.buildEmailForm());
+  }
+
+  public addPhoneNumber() {
+    const phoneNumbers = this.contactForm.get('phoneNumbers') as FormArray;
+    phoneNumbers.push(this.buildPhoneNumberForm());
   }
 }
