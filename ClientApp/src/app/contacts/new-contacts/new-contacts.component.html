@@ -6,46 +6,99 @@
   <div><h1 class="text-2xl pb-4">Add Contact</h1></div>
   <div class="flex flex-col">
     <label for="firstname" class="pt-2 pb-1">First Name</label>
-    <input type="text" id="firstname" formControlName="firstName" />
+    <input
+      type="text"
+      id="firstname"
+      [formControl]="contactForm.get('firstName') | asFormControl"
+    />
   </div>
   <div class="flex flex-col">
     <div class="pt-2 pb-1">Last Name</div>
-    <input type="text" id="lastname" formControlName="lastName" />
+    <input
+      type="text"
+      id="lastname"
+      [formControl]="contactForm.get('lastName') | asFormControl"
+    />
   </div>
-  <div formGroupName="address">
+  <div>
     <h2 lass="pt-5 pb-1">Address</h2>
     <div class="flex flex-col">
-      <div class="pt-2 pb-1">Street Address</div>
-      <input type="text" id="address" formControlName="streetAddress" />
-    </div>
+      <div
+        *ngFor="let group of contactForm.get('addresses') | asFormGroupArray"
+      >
+        <div class="pt-2 pb-1">Street Address</div>
+        <input
+          type="text"
+          id="address"
+          [formControl]="group.get('streetAddress') | asFormControl"
+        />
 
-    <div class="flex flex-row space-x-4 justify-between">
-      <div class="flex flex-col w-3/6">
-        <div class="pt-2 pb-1">City</div>
-        <input type="text" id="city" formControlName="city" />
+        <div class="flex flex-row space-x-4 justify-between">
+          <div class="flex flex-col w-3/6">
+            <div class="pt-2 pb-1">City</div>
+            <input
+              type="text"
+              id="city"
+              [formControl]="group.get('city') | asFormControl"
+            />
+          </div>
+          <div class="flex flex-col w-2/6">
+            <div class="pt-2 pb-1">State</div>
+            <input
+              type="text"
+              id="state"
+              [formControl]="group.get('state') | asFormControl"
+            />
+          </div>
+          <div class="flex flex-col w-2/6">
+            <div class="pt-2 pb-1">Zipcode</div>
+            <input
+              type="text"
+              id="zipcode"
+              [formControl]="group.get('zipcode') | asFormControl"
+            />
+          </div>
+        </div>
       </div>
-      <div class="flex flex-col w-2/6">
-        <div class="pt-2 pb-1">State</div>
-        <input type="text" id="state" formControlName="state" />
-      </div>
-      <div class="flex flex-col w-2/6">
-        <div class="pt-2 pb-1">Zipcode</div>
-        <input type="text" id="zipcode" formControlName="zipcode" />
-      </div>
+      <button type="button" (click)="addAddress()">Add a row</button>
     </div>
   </div>
 
-  <div formGroupName="contactInfo">
+  <div>
     <h2>Contact Detail</h2>
     <div class="pt-2 pb-1">Email</div>
-    <input type="text" id="email" formControlName="email" class="w-full" />
+    <div
+      *ngFor="let group of contactForm.get('emailAddresses') | asFormGroupArray"
+    >
+      <input
+        type="text"
+        id="email"
+        [formControl]="group.get('emailAddress') | asFormControl"
+        class="w-full"
+      />
+    </div>
+    <button type="button" (click)="addEmailAddress()">Add a row</button>
+
     <div class="pt-2 pb-1">Phone</div>
-    <input type="text" id="phone" formControlName="phone" class="w-full" />
-  </div>
-  <div class="flex flex-row justify-between pt-10">
-    <button type="submit" class="w-20 rounded-lg bg-emerald-500 p-2">
-      Submit
-    </button>
-    <button class="w-20 rounded-lg bg-rose-500 p-2" type="reset">Clear</button>
+    <div
+      *ngFor="let group of contactForm.get('phoneNumbers') | asFormGroupArray"
+    >
+      <input
+        type="text"
+        id="phone"
+        [formControl]="group.get('phoneNumber') | asFormControl"
+        class="w-full"
+      />
+    </div>
+    <button type="button" (click)="addPhoneNumber()">Add a row</button>
+
+    <div class="flex flex-row justify-between pt-10">
+      <button type="submit" class="w-20 rounded-lg bg-emerald-500 p-2">
+        Submit
+      </button>
+      <button class="w-20 rounded-lg bg-rose-500 p-2" type="reset">
+        Clear
+      </button>
+    </div>
   </div>
 </form>

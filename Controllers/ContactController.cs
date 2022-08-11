@@ -39,4 +39,17 @@ public class ContactController : ControllerBase
         await this.contactService.DeleteContact(contact);
         return Ok();
     }
+
+    [HttpPost]   
+    [Route("")]
+    async public Task<ActionResult<Contact>> Post([FromBody] Contact contact)
+    {
+        contact.Id = Guid.NewGuid();
+        if(contact == null)
+        {
+            return BadRequest();
+        }
+        await this.contactService.AddContact(contact);
+        return Ok();
+    }
 }

@@ -33,4 +33,21 @@ public class ContactService : IContactService
       await transaction.RollbackAsync();
     }
 } 
+
+    async public Task AddContact(Contact contact)
+    {
+      var transaction = await context.Database.BeginTransactionAsync();
+      try 
+      {
+        await context.Contacts.AddAsync(contact);
+        await context.SaveChangesAsync();
+
+        await context.Database.CommitTransactionAsync();
+      }
+      catch (Exception)
+      {
+        await transaction.RollbackAsync();
+      } 
+    }
+
 }
