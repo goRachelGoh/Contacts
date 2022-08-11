@@ -12,16 +12,9 @@ export class NewContactsComponent implements OnInit {
   public contactForm = this.formBuilder.group({
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
-    address: this.formBuilder.group({
-      streetAddress: ['', Validators.required],
-      city: ['', Validators.required],
-      state: ['', Validators.required],
-      zipcode: ['', Validators.required],
-    }),
-    contactInfo: this.formBuilder.group({
-      email: ['', Validators.required],
-      phoneNumber: ['', Validators.required],
-    }),
+    addresses: this.formBuilder.array([]),
+    emailAddresses: this.formBuilder.array([]),
+    phoneNumbers: this.formBuilder.array([]),
   });
 
   constructor(
@@ -41,5 +34,26 @@ export class NewContactsComponent implements OnInit {
       .subscribe((contact) => {
         console.log(contact);
       });
+  }
+
+  private buildAddressForm(): FormGroup {
+    return this.formBuilder.group({
+      streetAddress: ['', Validators.required],
+      city: ['', Validators.required],
+      state: ['', Validators.required],
+      zipcode: ['', Validators.required],
+    });
+  }
+
+  private buildEmailForm(): FormGroup {
+    return this.formBuilder.group({
+      emailAddress: ['', Validators.required],
+    });
+  }
+
+  private buildPhoneNumberForm(): FormGroup {
+    return this.formBuilder.group({
+      phoneNumber: ['', Validators.required],
+    });
   }
 }
