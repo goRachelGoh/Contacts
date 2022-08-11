@@ -38,7 +38,6 @@ public class ContactController : ControllerBase
         }
         await this.contactService.DeleteContact(contact);
         return Ok();
-<<<<<<< HEAD
     }
 
     [HttpPost]   
@@ -52,7 +51,5 @@ public class ContactController : ControllerBase
         }
         await this.contactService.AddContact(contact);
         return Ok();
-=======
->>>>>>> 512ee167371211bf13af3c68d4529f8973ba095d
     }
 }

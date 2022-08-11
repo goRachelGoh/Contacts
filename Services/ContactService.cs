@@ -33,7 +33,6 @@ public class ContactService : IContactService
       await transaction.RollbackAsync();
     }
 } 
-<<<<<<< HEAD
 
     async public Task AddContact(Contact contact)
     {
@@ -50,6 +49,5 @@ public class ContactService : IContactService
         await transaction.RollbackAsync();
       } 
     }
-=======
->>>>>>> 512ee167371211bf13af3c68d4529f8973ba095d
+
 }

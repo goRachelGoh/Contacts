@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-<<<<<<< HEAD
 import {
   NgForm,
   FormControl,
@@ -7,9 +6,7 @@ import {
   FormBuilder,
   FormArray,
 } from '@angular/forms';
-=======
-import { NgForm, FormControl, FormGroup, FormBuilder } from '@angular/forms';
->>>>>>> 512ee167371211bf13af3c68d4529f8973ba095d
+
 import { ContactsService } from '../contacts.service';
 import { Validators } from '@angular/forms';
 
@@ -22,11 +19,9 @@ export class NewContactsComponent implements OnInit {
   public contactForm = this.formBuilder.group({
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
-<<<<<<< HEAD
     addresses: this.formBuilder.array([this.buildAddressForm()]),
     emailAddresses: this.formBuilder.array([this.buildEmailForm()]),
     phoneNumbers: this.formBuilder.array([this.buildPhoneNumberForm()]),
-=======
     address: this.formBuilder.group({
       streetAddress: ['', Validators.required],
       city: ['', Validators.required],
@@ -37,7 +32,6 @@ export class NewContactsComponent implements OnInit {
       email: ['', Validators.required],
       phone: ['', Validators.required],
     }),
->>>>>>> 512ee167371211bf13af3c68d4529f8973ba095d
   });
 
   constructor(
@@ -58,7 +52,6 @@ export class NewContactsComponent implements OnInit {
         console.log(contact);
       });
   }
-<<<<<<< HEAD
 
   private buildAddressForm(): FormGroup {
     return this.formBuilder.group({
@@ -95,6 +88,4 @@ export class NewContactsComponent implements OnInit {
     const addresses = this.contactForm.get('addresses') as FormArray;
     addresses.push(this.buildAddressForm());
   }
-=======
->>>>>>> 512ee167371211bf13af3c68d4529f8973ba095d
 }
