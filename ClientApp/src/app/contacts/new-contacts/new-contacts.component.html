@@ -69,28 +69,40 @@
     <div class="pt-2 pb-1">Email</div>
     <div
       *ngFor="let group of contactForm.get('emailAddresses') | asFormGroupArray"
+      class="py-1"
     >
       <input
         type="text"
         id="email"
         [formControl]="group.get('emailAddress') | asFormControl"
-        class="w-full"
+        class="w-4/5"
       />
+      <fa-icon
+        [icon]="faTrashCan"
+        (click)="deleteEmail(addEmailAddress)"
+      ></fa-icon>
     </div>
-    <button type="button" (click)="addEmailAddress()">Add a row</button>
+
+    <button type="button" (click)="addEmailAddress()">+ Add</button>
 
     <div class="pt-2 pb-1">Phone</div>
     <div
       *ngFor="let group of contactForm.get('phoneNumbers') | asFormGroupArray"
+      class="py-1"
     >
       <input
         type="text"
         id="phone"
         [formControl]="group.get('phoneNumber') | asFormControl"
-        class="w-full"
+        class="w-4/5"
       />
+      <fa-icon
+        [icon]="faTrashCan"
+        (click)="deletePhoneNumber(addPhoneNumber)"
+      ></fa-icon>
+      <!-- show delete icon only when array.length > 1 ? *ngIf="group.get('phoneNumber').length > 1"-->
     </div>
-    <button type="button" (click)="addPhoneNumber()">Add a row</button>
+    <button type="button" (click)="addPhoneNumber()">+ Add</button>
 
     <div class="flex flex-row justify-between pt-10">
       <button type="submit" class="w-20 rounded-lg bg-emerald-500 p-2">

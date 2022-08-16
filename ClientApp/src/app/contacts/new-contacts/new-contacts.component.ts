@@ -6,7 +6,7 @@ import {
   FormBuilder,
   FormArray,
 } from '@angular/forms';
-
+import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { ContactsService } from '../contacts.service';
 import { Validators } from '@angular/forms';
 
@@ -16,6 +16,7 @@ import { Validators } from '@angular/forms';
   styleUrls: ['./new-contacts.component.css'],
 })
 export class NewContactsComponent implements OnInit {
+  public faTrashCan = faTrashCan;
   public contactForm = this.formBuilder.group({
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
@@ -77,5 +78,15 @@ export class NewContactsComponent implements OnInit {
   public addAddress() {
     const addresses = this.contactForm.get('addresses') as FormArray;
     addresses.push(this.buildAddressForm());
+  }
+
+  public deleteEmail(index: any) {
+    const emailAddresses = this.contactForm.get('emailAddresses') as FormArray;
+    emailAddresses.removeAt(index);
+  }
+
+  public deletePhoneNumber(index: any) {
+    const phoneNumbers = this.contactForm.get('phoneNumbers') as FormArray;
+    phoneNumbers.removeAt(index);
   }
 }
