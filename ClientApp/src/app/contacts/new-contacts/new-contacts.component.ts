@@ -5,6 +5,9 @@ import {
   FormGroup,
   FormBuilder,
   FormArray,
+  ValidatorFn,
+  AbstractControl,
+  ValidationErrors,
 } from '@angular/forms';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { ContactsService } from '../contacts.service';
@@ -18,11 +21,11 @@ import { Validators } from '@angular/forms';
 export class NewContactsComponent implements OnInit {
   public faTrashCan = faTrashCan;
   public contactForm = this.formBuilder.group({
-    firstName: ['', Validators.required],
-    lastName: ['', Validators.required],
+    firstName: ['', [Validators.required, this.noSpaceAllowed]], //must be letters only
+    lastName: ['', [Validators.required, this.noSpaceAllowed]], //must be letters only
     addresses: this.formBuilder.array([this.buildAddressForm()]),
     emailAddresses: this.formBuilder.array([this.buildEmailForm()]),
-    phoneNumbers: this.formBuilder.array([this.buildPhoneNumberForm()]),
+    phoneNumbers: this.formBuilder.array([this.buildPhoneNumberForm()]), //number only
   });
 
   constructor(
@@ -33,14 +36,15 @@ export class NewContactsComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit() {
+    console.log(this.contactForm);
     if (this.contactForm.invalid) {
       alert('Check your data again');
       return;
     }
     this.contactsService
       .addContact(this.contactForm.value)
-      .subscribe((contact) => {
-        console.log(contact);
+      .subscribe((contactForm) => {
+        console.log(contactForm);
       });
   }
 
@@ -49,19 +53,28 @@ export class NewContactsComponent implements OnInit {
       streetAddress: ['', Validators.required],
       city: ['', Validators.required],
       state: ['', Validators.required],
-      zipcode: ['', Validators.required],
+      zipcode: ['', [Validators.maxLength(5), Validators.pattern('^[0-9]*$')]], //5 number
     });
   }
 
+  //emails cannot be duplicate
   private buildEmailForm(): FormGroup {
     return this.formBuilder.group({
-      emailAddress: ['', Validators.required],
+      emailAddress: ['', [Validators.required, this.notValidEmail]],
     });
   }
 
+  //phonenumbers cannot be duplicate
   private buildPhoneNumberForm(): FormGroup {
     return this.formBuilder.group({
-      phoneNumber: ['', Validators.required],
+      phoneNumber: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(10),
+          Validators.pattern('[^[0-9]*$]'),
+        ],
+      ],
     });
   }
 
@@ -88,5 +101,19 @@ export class NewContactsComponent implements OnInit {
   public deletePhoneNumber(index: any) {
     const phoneNumbers = this.contactForm.get('phoneNumbers') as FormArray;
     phoneNumbers.removeAt(index);
+  }
+
+  public noSpaceAllowed(input: FormControl) {
+    if (input.value != null && input.value.indexOf(' ') != -1) {
+      return { noSpaceAllowed: true };
+    }
+    return null;
+  }
+
+  public notValidEmail(input: FormControl) {
+    if (!input.value.includes('@')) {
+      return { notValidEmail: true };
+    }
+    return null;
   }
 }
