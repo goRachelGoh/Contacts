@@ -52,4 +52,17 @@ public class ContactController : ControllerBase
         await this.contactService.AddContact(contact);
         return Ok();
     }
+
+    
+    [HttpPost]   
+    [Route("duplicate")]
+    async public Task<ActionResult<dynamic>> DuplicateCheck([FromBody] Contact contact)
+    {
+        var result = await this.contactRepository.Duplicate(contact);
+        if (result)
+        {
+           return new { isDuplicatedContact = true };
+        }
+        return null;
+    }
 }

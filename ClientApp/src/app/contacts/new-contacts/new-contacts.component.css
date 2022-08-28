@@ -9,3 +9,8 @@ form {
 input {
   color: #000000;
 }
+
+.error-red {
+  color: rgb(255, 64, 64);
+  font-weight: bold;
+}

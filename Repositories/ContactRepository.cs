@@ -1,5 +1,6 @@
 using Project_2_5;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 namespace Project_2_5.Repositories;
 
 public class ContactRepository : IContactRepository
@@ -28,4 +29,36 @@ public class ContactRepository : IContactRepository
       .Include(contact=>contact.PhoneNumbers)
       .FirstAsync();
   }
+
+        async public Task<bool> Duplicate(Contact contact)
+  {
+       var duplicateNameQueryable = this.context.Contacts
+        .Where(
+          dbContact => dbContact.FirstName == contact.FirstName 
+          && dbContact.LastName == contact.LastName
+        );
+
+        var duplicatePhone = await this.context.Contacts
+          .Concat(duplicateNameQueryable)
+          .Include(dbContact => dbContact.PhoneNumbers)
+          .Select(
+            dbContact => dbContact.PhoneNumbers.DefaultIfEmpty().Intersect(contact.PhoneNumbers.DefaultIfEmpty())
+          )
+          .Select(contactIntersection => contactIntersection.Count() >= 1)
+          .FirstAsync();
+
+        var duplicateEmail = await this.context.Contacts
+          .Concat(duplicateNameQueryable)
+          .Include(dbContact => dbContact.EmailAddresses)
+          .Select(
+            dbContact => dbContact.EmailAddresses.DefaultIfEmpty().Intersect(contact.EmailAddresses.DefaultIfEmpty())
+          )
+          .Select(contactIntersection => contactIntersection.Count() >= 1)
+          .FirstAsync();
+
+        return duplicatePhone || duplicateEmail;
+  }
+
+  
+
 }

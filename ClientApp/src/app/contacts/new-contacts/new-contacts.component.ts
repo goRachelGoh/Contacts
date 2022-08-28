@@ -8,10 +8,12 @@ import {
   ValidatorFn,
   AbstractControl,
   ValidationErrors,
+  AsyncValidatorFn,
 } from '@angular/forms';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { ContactsService } from '../contacts.service';
-import { Validators } from '@angular/forms';
+import { Validators, AsyncValidator } from '@angular/forms';
+import { EMPTY, iif, Observable, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-new-contacts',
@@ -21,8 +23,8 @@ import { Validators } from '@angular/forms';
 export class NewContactsComponent implements OnInit {
   public faTrashCan = faTrashCan;
   public contactForm = this.formBuilder.group({
-    firstName: ['', [Validators.required, this.noSpaceAllowed]], //must be letters only
-    lastName: ['', [Validators.required, this.noSpaceAllowed]], //must be letters only
+    firstName: ['', [Validators.required, Validators.pattern('^[a-zA-Z\\-]+')]],
+    lastName: ['', [Validators.required, Validators.pattern('^[a-zA-Z\\-]+')]], //must be letters only
     addresses: this.formBuilder.array([this.buildAddressForm()]),
     emailAddresses: this.formBuilder.array([this.buildEmailForm()]),
     phoneNumbers: this.formBuilder.array([this.buildPhoneNumberForm()]), //number only
@@ -36,6 +38,18 @@ export class NewContactsComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit() {
+    this.contactsService
+      .findDuplicateContact(this.contactForm.value)
+      .pipe(
+        switchMap((response) =>
+          iif(
+            () => response === null,
+            this.contactsService.addContact(this.contactForm.value),
+            EMPTY
+          )
+        )
+      )
+      .subscribe();
     console.log(this.contactForm);
     if (this.contactForm.invalid) {
       alert('Check your data again');
@@ -53,14 +67,14 @@ export class NewContactsComponent implements OnInit {
       streetAddress: ['', Validators.required],
       city: ['', Validators.required],
       state: ['', Validators.required],
-      zipcode: ['', [Validators.maxLength(5), Validators.pattern('^[0-9]*$')]], //5 number
+      zipcode: ['', [Validators.maxLength(5), Validators.pattern('^[0-9]+')]], //5 number
     });
   }
 
   //emails cannot be duplicate
   private buildEmailForm(): FormGroup {
     return this.formBuilder.group({
-      emailAddress: ['', [Validators.required, this.notValidEmail]],
+      emailAddress: ['', [Validators.required, Validators.email]],
     });
   }
 
@@ -71,8 +85,8 @@ export class NewContactsComponent implements OnInit {
         '',
         [
           Validators.required,
-          Validators.minLength(10),
-          Validators.pattern('[^[0-9]*$]'),
+          Validators.pattern('^[0-9]{10,}'),
+          this.isDuplicatedPhoneNumber,
         ],
       ],
     });
@@ -103,16 +117,20 @@ export class NewContactsComponent implements OnInit {
     phoneNumbers.removeAt(index);
   }
 
-  public noSpaceAllowed(input: FormControl) {
-    if (input.value != null && input.value.indexOf(' ') != -1) {
-      return { noSpaceAllowed: true };
-    }
-    return null;
-  }
+  public isDuplicatedPhoneNumber(input: FormControl) {
+    const phoneFormGroup = input.parent;
+    const phoneFormArray = phoneFormGroup?.parent as FormArray;
 
-  public notValidEmail(input: FormControl) {
-    if (!input.value.includes('@')) {
-      return { notValidEmail: true };
+    if (phoneFormGroup && phoneFormArray) {
+      const phoneNumbers =
+        (phoneFormArray?.controls as FormGroup[])?.map(
+          (group) => group.get('phoneNumber')?.value
+        ) ?? [];
+
+      let result = phoneNumbers.filter(
+        (phoneNumber) => phoneNumber === input.value
+      );
+      return result.length <= 1 ? null : { isDuplicatedPhoneNumber: true };
     }
     return null;
   }
