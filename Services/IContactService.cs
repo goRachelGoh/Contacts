@@ -8,6 +8,5 @@ public interface IContactService
     public Task DeleteContact(Contact contact);
 
     public Task AddContact(Contact contact);
-
     
 }

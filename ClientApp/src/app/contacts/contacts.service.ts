@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ValidationErrors } from '@angular/forms';
 import {
   ActivatedRouteSnapshot,
   Resolve,
@@ -42,6 +43,13 @@ export class ContactsService implements Resolve<any[]> {
     return this.http.post<any>(url, contact);
 
     return this.http.post<any[]>(url, contact);
+  }
+
+  public findDuplicateContact(
+    contact: any
+  ): Observable<ValidationErrors | null> {
+    const url = `${this.url}/duplicate`;
+    return this.http.post<any>(url, contact);
   }
 
   // public updateContact(contact: any): Observable<any[]> {
