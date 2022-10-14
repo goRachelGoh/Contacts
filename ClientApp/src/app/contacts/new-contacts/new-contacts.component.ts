@@ -13,7 +13,7 @@ import {
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { ContactsService } from '../contacts.service';
 import { Validators, AsyncValidator } from '@angular/forms';
-import { EMPTY, iif, Observable, switchMap } from 'rxjs';
+import { EMPTY, iif, Observable, of, switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'app-new-contacts',
@@ -41,11 +41,13 @@ export class NewContactsComponent implements OnInit {
     this.contactsService
       .findDuplicateContact(this.contactForm.value)
       .pipe(
-        switchMap((response) =>
+          switchMap((response) =>
           iif(
             () => response === null,
             this.contactsService.addContact(this.contactForm.value),
-            EMPTY
+            of((response: any) => {
+              this.contactForm.setErrors(response)
+              console.log(response, "response")})
           )
         )
       )
@@ -55,11 +57,6 @@ export class NewContactsComponent implements OnInit {
       alert('Check your data again');
       return;
     }
-    this.contactsService
-      .addContact(this.contactForm.value)
-      .subscribe((contactForm) => {
-        console.log(contactForm);
-      });
   }
 
   private buildAddressForm(): FormGroup {
