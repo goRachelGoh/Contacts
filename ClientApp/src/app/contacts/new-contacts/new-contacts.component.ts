@@ -13,7 +13,7 @@ import {
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { ContactsService } from '../contacts.service';
 import { Validators, AsyncValidator } from '@angular/forms';
-import { EMPTY, iif, Observable, of, switchMap, tap } from 'rxjs';
+import { defer, EMPTY, iif, Observable, of, switchMap, take, tap } from 'rxjs';
 
 @Component({
   selector: 'app-new-contacts',
@@ -35,28 +35,40 @@ export class NewContactsComponent implements OnInit {
     private formBuilder: FormBuilder
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.contactForm.valueChanges.subscribe(() => {
+      console.log(this.contactForm);
+    });
+  }
 
   onSubmit() {
     this.contactsService
       .findDuplicateContact(this.contactForm.value)
       .pipe(
-          switchMap((response) =>
+        take(1),
+        switchMap((response) =>
           iif(
             () => response === null,
-            this.contactsService.addContact(this.contactForm.value),
-            of((response: any) => {
-              this.contactForm.setErrors(response)
-              console.log(response, "response")})
+            defer(() => {
+              if (
+                this.contactForm?.errors &&
+                this.contactForm.hasError('isDuplicatedContact')
+              ) {
+                delete this.contactForm.errors['isDuplicatedContact'];
+                this.contactForm.updateValueAndValidity();
+              }
+              console.log(this.contactForm.errors);
+              return this.contactsService.addContact(this.contactForm.value);
+            }),
+            defer(() => {
+              this.contactForm.setErrors(response);
+              console.log(response);
+              return of(true);
+            })
           )
         )
       )
       .subscribe();
-    console.log(this.contactForm);
-    if (this.contactForm.invalid) {
-      alert('Check your data again');
-      return;
-    }
   }
 
   private buildAddressForm(): FormGroup {
