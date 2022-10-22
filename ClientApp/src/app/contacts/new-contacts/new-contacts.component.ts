@@ -44,31 +44,48 @@ export class NewContactsComponent implements OnInit {
   onSubmit() {
     this.contactsService
       .findDuplicateContact(this.contactForm.value)
-      .pipe(
-        take(1),
-        switchMap((response) =>
-          iif(
-            () => response === null,
-            defer(() => {
-              if (
-                this.contactForm?.errors &&
-                this.contactForm.hasError('isDuplicatedContact')
-              ) {
-                delete this.contactForm.errors['isDuplicatedContact'];
-                this.contactForm.updateValueAndValidity();
-              }
-              console.log(this.contactForm.errors);
-              return this.contactsService.addContact(this.contactForm.value);
-            }),
-            defer(() => {
-              this.contactForm.setErrors(response);
-              console.log(response);
-              return of(true);
-            })
-          )
-        )
-      )
-      .subscribe();
+      // .pipe(
+      //   take(1),
+      //   switchMap((response) =>
+      // iif(
+      //   () => response === null,
+      //   defer(() => {
+      //     if (
+      //       this.contactForm?.errors &&
+      //       this.contactForm.hasError('isDuplicatedContact')
+      //     ) {
+      //       delete this.contactForm.errors['isDuplicatedContact'];
+      //       this.contactForm.updateValueAndValidity();
+      //     }
+      //     console.log(this.contactForm.errors);
+      //     return this.contactsService.addContact(this.contactForm.value);
+      //   }),
+      //   defer(() => {
+      //     this.contactForm.setErrors(response);
+      //     console.log(response);
+      //     return of(true);
+      //   })
+      // )
+      //   )
+      // )
+      .subscribe((response) => {
+        if (response === null) {
+          {
+            if (
+              this.contactForm?.errors &&
+              this.contactForm.hasError('isDuplicatedContact')
+            ) {
+              delete this.contactForm.errors['isDuplicatedContact'];
+              this.contactForm.updateValueAndValidity();
+            }
+            console.log(this.contactForm.errors);
+            this.contactsService.addContact(this.contactForm.value).subscribe();
+          }
+        } else {
+          this.contactForm.setErrors(response);
+          console.log(response);
+        }
+      });
   }
 
   private buildAddressForm(): FormGroup {
