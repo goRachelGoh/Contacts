@@ -38,6 +38,7 @@ export class ContactsListComponent implements OnInit {
 
   ngOnInit(): void {
     this.contactsList = this.activatedRoute.snapshot.data.contacts;
+    const copyList = this.contactsList.slice();
     console.log(this.contactsList);
 
     this.sortedPropertyName.subscribe((propertyName) => {
@@ -55,6 +56,8 @@ export class ContactsListComponent implements OnInit {
           this.sortDirection.next(SortDirection.Descending);
           break;
         case SortDirection.Descending:
+          this.contactsList = copyList;
+          console.log(copyList);
           this.sortDirection.next(SortDirection.Default);
           break;
         default:
@@ -74,9 +77,6 @@ export class ContactsListComponent implements OnInit {
           ))
       );
   }
-
-  //Update the contact
-  onUpdate(contact: any) {}
 
   onclick(propertyName: string) {
     this.sortedPropertyName.next(propertyName);
