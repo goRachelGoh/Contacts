@@ -1,8 +1,8 @@
 <!-- shows the entire list of contacts? -->
 
-<table class="m-auto w-full table-fixed text-white">
+<table class="m-auto w-full table-fixed">
   <thead>
-    <tr class="border-b-2 border-slate-300">
+    <tr class="border-b-2 border-teal-800">
       <th class="p-2 text-center">First Name</th>
       <th class="p-2 text-center">Last Name</th>
       <th class="p-2 text-center">Address</th>
@@ -16,16 +16,20 @@
   <tbody>
     <tr
       *ngFor="let contact of contactsList; index as i"
-      class="border-b-2 border-slate-300"
+      class="border-b-2 border-teal-800"
     >
       <td class="p-2 text-center">{{ contact.firstName }}</td>
       <td class="p-2 text-center">{{ contact.lastName }}</td>
-      <td class="p-2 text-center">{{ contact.address }}</td>
-      <td class="p-2 text-center">{{ contact.city }}</td>
-      <td class="p-2 text-center">{{ contact.state }}</td>
-      <td class="p-2 text-center">{{ contact.zipcode }}</td>
-      <td class="p-2 text-center">{{ contact.email }}</td>
-      <td class="p-2 text-center">{{ contact.phone }}</td>
+      <td class="p-2 text-center">{{ contact.addresses[0]?.streetAddress }}</td>
+      <td class="p-2 text-center">{{ contact.addresses[0]?.city }}</td>
+      <td class="p-2 text-center">{{ contact.addresses[0]?.state }}</td>
+      <td class="p-2 text-center">{{ contact.addresses[0]?.zipCode }}</td>
+      <td class="p-2 text-center">
+        {{ contact.emailAddresses[0]?.emailAddress }}
+      </td>
+      <td class="p-2 text-center">
+        {{ contact.phoneNumbers[0]?.phoneNumber }}
+      </td>
       <button class="p-2 text-center">
         <fa-icon [icon]="faPencil"></fa-icon>
       </button>
