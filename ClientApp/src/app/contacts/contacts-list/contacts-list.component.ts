@@ -5,6 +5,8 @@ import {
   faPencil,
   faTrashCan,
   faSave,
+  faArrowUp,
+  faArrowDown,
 } from '@fortawesome/free-solid-svg-icons';
 import { BehaviorSubject } from 'rxjs';
 import { ContactsService } from '../contacts.service';
@@ -23,6 +25,8 @@ export class ContactsListComponent implements OnInit {
   public faPencil = faPencil;
   public faTrashCan = faTrashCan;
   public faSave = faSave;
+  public faArrowUp = faArrowUp;
+  public faArrowDown = faArrowDown;
   public showEdit = false;
   public showSave = true;
   public contactsList: any[] = [];
@@ -57,7 +61,6 @@ export class ContactsListComponent implements OnInit {
           break;
         case SortDirection.Descending:
           this.contactsList = copyList;
-          console.log(copyList);
           this.sortDirection.next(SortDirection.Default);
           break;
         default:

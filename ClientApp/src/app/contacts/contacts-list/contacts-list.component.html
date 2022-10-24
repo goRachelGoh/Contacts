@@ -3,8 +3,47 @@
 <table class="m-auto w-full table-fixed">
   <thead>
     <tr class="border-b-2 border-teal-800">
-      <th class="p-2 text-center" (click)="onclick('firstName')">First Name</th>
-      <th class="p-2 text-center" (click)="onclick('lastName')">Last Name</th>
+      <th class="p-2 text-center" (click)="onclick('firstName')">
+        First Name
+        <ng-container
+          [ngTemplateOutlet]="
+            sortDirection.getValue() === 1 &&
+            sortedPropertyName.getValue() === 'firstName'
+              ? down
+              : sortDirection.getValue() === 2 &&
+                sortedPropertyName.getValue() === 'firstName'
+              ? up
+              : default
+          "
+        ></ng-container>
+
+        <ng-template #down
+          ><fa-icon [icon]="faArrowDown"></fa-icon
+        ></ng-template>
+        <ng-template #up><fa-icon [icon]="faArrowUp"></fa-icon></ng-template>
+        <ng-template #default></ng-template>
+      </th>
+      <th class="p-2 text-center" (click)="onclick('lastName')">
+        Last Name
+
+        <ng-container
+          [ngTemplateOutlet]="
+            sortDirection.getValue() === 1 &&
+            sortedPropertyName.getValue() === 'lastName'
+              ? down
+              : sortDirection.getValue() === 2 &&
+                sortedPropertyName.getValue() === 'lastName'
+              ? up
+              : default
+          "
+        ></ng-container>
+
+        <ng-template #down
+          ><fa-icon [icon]="faArrowDown"></fa-icon
+        ></ng-template>
+        <ng-template #up><fa-icon [icon]="faArrowUp"></fa-icon></ng-template>
+        <ng-template #default></ng-template>
+      </th>
       <th class="p-2 text-center">Address</th>
       <th class="p-2 text-center">City</th>
       <th class="p-2 text-center">State</th>
