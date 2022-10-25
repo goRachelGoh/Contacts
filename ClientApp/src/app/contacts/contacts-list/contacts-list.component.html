@@ -16,7 +16,6 @@
               : default
           "
         ></ng-container>
-
         <ng-template #down
           ><fa-icon [icon]="faArrowDown"></fa-icon
         ></ng-template>
@@ -25,7 +24,6 @@
       </th>
       <th class="p-2 text-center" (click)="onclick('lastName')">
         Last Name
-
         <ng-container
           [ngTemplateOutlet]="
             sortDirection.getValue() === 1 &&
@@ -37,7 +35,6 @@
               : default
           "
         ></ng-container>
-
         <ng-template #down
           ><fa-icon [icon]="faArrowDown"></fa-icon
         ></ng-template>
