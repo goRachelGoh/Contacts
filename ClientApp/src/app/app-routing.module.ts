@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { ContactsService } from './contacts/contacts.service';
 import { NewContactsComponent } from './contacts/new-contacts/new-contacts.component';
 import { ContactsListComponent } from './contacts/contacts-list/contacts-list.component';
+import { ContactDetailsComponent } from './contacts/contact-details/contact-details.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -19,6 +20,7 @@ const routes: Routes = [
     resolve: { contacts: ContactsService },
   },
   { path: 'new', component: NewContactsComponent },
+  { path: 'details/:id', component: ContactDetailsComponent },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes, { useHash: true })],

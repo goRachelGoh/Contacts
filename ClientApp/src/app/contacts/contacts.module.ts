@@ -7,9 +7,14 @@ import { NewContactsComponent } from './new-contacts/new-contacts.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { PipesModule } from '../pipes/pipes.module';
+import { ContactDetailsComponent } from './contact-details/contact-details.component';
 
 @NgModule({
-  declarations: [ContactsListComponent, NewContactsComponent],
+  declarations: [
+    ContactsListComponent,
+    NewContactsComponent,
+    ContactDetailsComponent,
+  ],
   imports: [
     CommonModule,
     RouterModule,
@@ -18,6 +23,10 @@ import { PipesModule } from '../pipes/pipes.module';
     ReactiveFormsModule,
     PipesModule,
   ],
-  exports: [ContactsListComponent, NewContactsComponent],
+  exports: [
+    ContactsListComponent,
+    NewContactsComponent,
+    ContactDetailsComponent,
+  ],
 })
 export class ContactsModule {}

@@ -41,8 +41,6 @@ export class ContactsService implements Resolve<any[]> {
   public addContact(contact: any): Observable<any[]> {
     const url = `${this.url}`;
     return this.http.post<any>(url, contact);
-
-    return this.http.post<any[]>(url, contact);
   }
 
   public findDuplicateContact(
@@ -51,9 +49,4 @@ export class ContactsService implements Resolve<any[]> {
     const url = `${this.url}/duplicate`;
     return this.http.post<any>(url, contact);
   }
-
-  // public updateContact(contact: any): Observable<any[]> {
-  //   const url = `${this.url}/${contact.id}`;
-  //   return this.http.put<any[]>(url, contact, httpOptions);
-  // }
 }

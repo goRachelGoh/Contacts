@@ -5,15 +5,10 @@ import {
   FormGroup,
   FormBuilder,
   FormArray,
-  ValidatorFn,
-  AbstractControl,
-  ValidationErrors,
-  AsyncValidatorFn,
 } from '@angular/forms';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { ContactsService } from '../contacts.service';
-import { Validators, AsyncValidator } from '@angular/forms';
-import { defer, EMPTY, iif, Observable, of, switchMap, take, tap } from 'rxjs';
+import { Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-new-contacts',
@@ -44,30 +39,7 @@ export class NewContactsComponent implements OnInit {
   onSubmit() {
     this.contactsService
       .findDuplicateContact(this.contactForm.value)
-      // .pipe(
-      //   take(1),
-      //   switchMap((response) =>
-      // iif(
-      //   () => response === null,
-      //   defer(() => {
-      //     if (
-      //       this.contactForm?.errors &&
-      //       this.contactForm.hasError('isDuplicatedContact')
-      //     ) {
-      //       delete this.contactForm.errors['isDuplicatedContact'];
-      //       this.contactForm.updateValueAndValidity();
-      //     }
-      //     console.log(this.contactForm.errors);
-      //     return this.contactsService.addContact(this.contactForm.value);
-      //   }),
-      //   defer(() => {
-      //     this.contactForm.setErrors(response);
-      //     console.log(response);
-      //     return of(true);
-      //   })
-      // )
-      //   )
-      // )
+
       .subscribe((response) => {
         if (response === null) {
           {
