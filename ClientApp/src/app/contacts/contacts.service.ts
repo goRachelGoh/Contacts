@@ -33,6 +33,10 @@ export class ContactsService implements Resolve<any[]> {
     return this.http.get<any[]>('/api/contacts');
   }
 
+  public getContactById(id: any): Observable<any[]> {
+    return this.http.get<any[]>(`/api/contacts/${id}`);
+  }
+
   public deleteContact(contact: any): Observable<any[]> {
     const url = `${this.url}/${contact.id}`;
     return this.http.delete<any[]>(url);

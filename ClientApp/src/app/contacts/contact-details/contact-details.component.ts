@@ -17,7 +17,19 @@ import { ContactsService } from '../contacts.service';
   styleUrls: ['./contact-details.component.css'],
 })
 export class ContactDetailsComponent implements OnInit {
-  constructor() {}
+  contact: any;
+  constructor(
+    private Activatedroute: ActivatedRoute,
+    private contactsService: ContactsService
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const id = this.Activatedroute.snapshot.paramMap.get('id');
+    console.log(id);
+    const contact = this.contactsService.getContactById(id);
+    contact.subscribe((response) => {
+      console.log(response);
+    });
+    // console.log(contact);
+  }
 }

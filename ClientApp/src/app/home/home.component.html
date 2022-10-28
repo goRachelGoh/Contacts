@@ -1,16 +1,13 @@
-<form class="p-10 w-3/5 m-auto">
-  <div>
+<div class="flex flex-row">
+  <form class="p-10 w-3/5 m-auto">
     <input
-      class="w-full"
+      class="w-2/5"
       type="text"
       id="directory"
       name="directory"
       placeholder="Search Directory..."
     />
-  </div>
-</form>
-
-<div class="flex flex-row">
-  <app-contacts-list></app-contacts-list>
-  <app-contact-details></app-contact-details>
+    <button>Search</button>
+  </form>
 </div>
+<app-contacts-list></app-contacts-list>

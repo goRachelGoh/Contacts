@@ -27,6 +27,13 @@ public class ContactController : ControllerBase
         return await this.contactRepository.GetContacts();
     }
 
+    [HttpGet]   
+    [Route("{id:Guid}")]
+    async public Task<ActionResult<Contact>> Get(Guid id)
+    {
+        return await this.contactRepository.GetContactbyID(id);
+    }
+
     [HttpDelete]   
     [Route("{id:Guid}")]
     async public Task<ActionResult<Contact>> Delete(Guid id)
