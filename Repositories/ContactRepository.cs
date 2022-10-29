@@ -24,9 +24,9 @@ public class ContactRepository : IContactRepository
   {
       return await this.context.Contacts
       .Where(contact => contact.Id == id)
-      // .Include(contact=>contact.Addresses)
-      // .Include(contact=>contact.EmailAddresses)
-      // .Include(contact=>contact.PhoneNumbers)
+      .Include(contact=>contact.Addresses)
+      .Include(contact=>contact.EmailAddresses)
+      .Include(contact=>contact.PhoneNumbers)
       .FirstAsync();
   }
 
