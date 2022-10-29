@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   faPencil,
   faTrashCan,
   faSave,
-  faArrowUp,
-  faArrowDown,
+  faArrowLeft,
 } from '@fortawesome/free-solid-svg-icons';
 import { BehaviorSubject } from 'rxjs';
 import { ContactsService } from '../contacts.service';
@@ -17,6 +15,11 @@ import { ContactsService } from '../contacts.service';
   styleUrls: ['./contact-details.component.css'],
 })
 export class ContactDetailsComponent implements OnInit {
+  public faPencil = faPencil;
+  public faTrashCan = faTrashCan;
+  public faArrowLeft = faArrowLeft;
+  public faSave = faSave;
+  public contactsList: any[] = [];
   contact: any;
   constructor(
     private Activatedroute: ActivatedRoute,
@@ -31,5 +34,16 @@ export class ContactDetailsComponent implements OnInit {
       console.log(response);
     });
     // console.log(contact);
+  }
+
+  onDelete(contact: any) {
+    this.contactsService
+      .deleteContact(contact)
+      .subscribe(
+        () =>
+          (this.contactsList = this.contactsList.filter(
+            (eachcontact) => eachcontact.id !== contact.id
+          ))
+      );
   }
 }

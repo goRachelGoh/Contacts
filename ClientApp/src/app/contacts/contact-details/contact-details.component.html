@@ -1,1 +1,30 @@
-<p>contact-details works!</p>
+<div class="container">
+  <div class="flex flex-row justify-between">
+    <button class="p-2 text-center">
+      <a [routerLink]="['/home']"><fa-icon [icon]="faArrowLeft"></fa-icon></a>
+    </button>
+    <div class="flex flex-row">
+      <button class="p-2 text-center">
+        <fa-icon [icon]="faPencil"></fa-icon>
+      </button>
+      <button class="p-2 text-center">
+        <fa-icon [icon]="faSave"></fa-icon>
+      </button>
+      <button class="p-2 text-center">
+        <fa-icon [icon]="faTrashCan" (click)="onDelete(contact)"></fa-icon>
+      </button>
+    </div>
+  </div>
+  <div class="header">First Name Last Name</div>
+  <div class="flex flex-row justify-around">
+    <div class="flex flex-col p-10">
+      <div>Phone Number</div>
+      <div>Email Address</div>
+    </div>
+    <div class="flex flex-col p-10">
+      <div>Street Address</div>
+      <div>City</div>
+      <div>State</div>
+    </div>
+  </div>
+</div>

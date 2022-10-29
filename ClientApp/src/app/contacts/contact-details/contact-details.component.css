@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.header {
+  margin: 0 auto;
+  display: block;
+  font-size: 30px;
+  color: #115e59;
+  font-weight: bold;
+  text-align: center;
+}
+
+.container {
+  color: #115e59;
+  padding: 20px;
+  margin: 0 auto;
+  font-weight: bold;
+}

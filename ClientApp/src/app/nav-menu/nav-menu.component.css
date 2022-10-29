@@ -4,6 +4,10 @@
 
 input {
   color: #334155;
-  padding: 2px;
+  padding: 10px;
   border-radius: 4px;
+}
+
+.nav {
+  padding: 20px;
 }

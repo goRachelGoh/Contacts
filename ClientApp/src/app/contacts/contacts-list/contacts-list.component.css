@@ -1,4 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 table {
   width: 85%;
   color: #115e59;
+}
+
+.container {
+  padding: 20px;
+}
+
+.right-align {
+  float: right;
 }

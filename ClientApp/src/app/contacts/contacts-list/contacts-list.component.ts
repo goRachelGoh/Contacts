@@ -7,6 +7,8 @@ import {
   faSave,
   faArrowUp,
   faArrowDown,
+  faArrowLeft,
+  faUserPlus,
 } from '@fortawesome/free-solid-svg-icons';
 import { BehaviorSubject } from 'rxjs';
 import { ContactsService } from '../contacts.service';
@@ -27,6 +29,7 @@ export class ContactsListComponent implements OnInit {
   public faSave = faSave;
   public faArrowUp = faArrowUp;
   public faArrowDown = faArrowDown;
+  public faUserPlus = faUserPlus;
   public showEdit = false;
   public showSave = true;
   public contactsList: any[] = [];

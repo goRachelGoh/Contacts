@@ -6,7 +6,7 @@ import {
   FormBuilder,
   FormArray,
 } from '@angular/forms';
-import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { ContactsService } from '../contacts.service';
 import { Validators } from '@angular/forms';
 
@@ -17,6 +17,7 @@ import { Validators } from '@angular/forms';
 })
 export class NewContactsComponent implements OnInit {
   public faTrashCan = faTrashCan;
+  public faArrowLeft = faArrowLeft;
   public contactForm = this.formBuilder.group({
     firstName: ['', [Validators.required, Validators.pattern('^[a-zA-Z\\-]+')]],
     lastName: ['', [Validators.required, Validators.pattern('^[a-zA-Z\\-]+')]], //must be letters only
