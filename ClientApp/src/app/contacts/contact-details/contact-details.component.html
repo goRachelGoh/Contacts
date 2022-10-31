@@ -1,34 +1,47 @@
 <div class="container">
   <div class="flex flex-row justify-between">
     <button class="p-2 text-center">
-      <a [routerLink]="['/home']"><fa-icon [icon]="faArrowLeft"></fa-icon></a>
+      <a [routerLink]="['/home']"
+        ><fa-icon [icon]="faArrowLeft" class="fa-lg icon"></fa-icon
+      ></a>
     </button>
+
     <div class="flex flex-row">
-      <button class="p-2 text-center">
-        <fa-icon [icon]="faPencil"></fa-icon>
+      <button class="p-2">
+        <fa-icon [icon]="faPencil" class="fa-lg icon"></fa-icon>
       </button>
-      <button class="p-2 text-center">
-        <fa-icon [icon]="faSave"></fa-icon>
+      <button class="p-2">
+        <fa-icon [icon]="faSave" class="fa-lg icon"></fa-icon>
       </button>
-      <button class="p-2 text-center">
-        <fa-icon [icon]="faTrashCan" (click)="onDelete(contact)"></fa-icon>
+      <button class="p-2">
+        <fa-icon [icon]="faTrashCan" class="fa-lg icon"></fa-icon>
       </button>
     </div>
   </div>
-
-  <div class="header">First Name Last Name</div>
-  <div class="p-2 text-center">{{ contact.firstName }}</div>
-
+</div>
+<div class="container">
+  <div class="subHeader">Picture goes here later</div>
+  <div class="header">
+    {{ contact.firstName | uppercase }} {{ contact.lastName }}
+  </div>
+  <div class="subHeader">job title or compnay name goes here</div>
   <div class="flex flex-row justify-around">
-    <div class="flex flex-col p-10">
-      <div>Phone Number</div>
-
-      <div>Email Address</div>
+    <div class="flex flex-col item-column">
+      <div class="subHeading">ADDRESS</div>
+      <div *ngFor="let subItem of contact.addresses" class="per-item">
+        <div>{{ subItem.streetAddress }}</div>
+        <div>{{ subItem.city }} {{ subItem.state }} {{ subItem.zipCode }}</div>
+      </div>
     </div>
-    <div class="flex flex-col p-10">
-      <div>Street Address</div>
-      <div>City</div>
-      <div>State</div>
+    <div class="flex flex-col item-column">
+      <div class="subHeading">E-MAIL</div>
+      <div *ngFor="let subItem of contact.emailAddresses" class="per-item">
+        <div>{{ subItem.emailAddress }}</div>
+      </div>
+      <div class="subHeading">MOBILE</div>
+      <div *ngFor="let subItem of contact.phoneNumbers" class="per-item">
+        <div>{{ subItem.phoneNumber }}</div>
+      </div>
     </div>
   </div>
 </div>

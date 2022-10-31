@@ -10,48 +10,25 @@
         <th class="p-2 text-center" (click)="onclick('firstName')">
           First Name
           <ng-container
-            [ngTemplateOutlet]="
-              sortDirection.getValue() === 1 &&
-              sortedPropertyName.getValue() === 'firstName'
-                ? down
-                : sortDirection.getValue() === 2 &&
-                  sortedPropertyName.getValue() === 'firstName'
-                ? up
-                : default
-            "
+            [ngTemplateOutlet]="arrows"
+            [ngTemplateOutletContext]="{ propertyName: 'firstName' }"
           ></ng-container>
-          <ng-template #down
-            ><fa-icon [icon]="faArrowDown"></fa-icon
-          ></ng-template>
-          <ng-template #up><fa-icon [icon]="faArrowUp"></fa-icon></ng-template>
-          <ng-template #default></ng-template>
         </th>
         <th class="p-2 text-center" (click)="onclick('lastName')">
           Last Name
           <ng-container
-            [ngTemplateOutlet]="
-              sortDirection.getValue() === 1 &&
-              sortedPropertyName.getValue() === 'lastName'
-                ? down
-                : sortDirection.getValue() === 2 &&
-                  sortedPropertyName.getValue() === 'lastName'
-                ? up
-                : default
-            "
+            [ngTemplateOutlet]="arrows"
+            [ngTemplateOutletContext]="{ propertyName: 'lastName' }"
           ></ng-container>
-          <ng-template #down
-            ><fa-icon [icon]="faArrowDown"></fa-icon
-          ></ng-template>
-          <ng-template #up><fa-icon [icon]="faArrowUp"></fa-icon></ng-template>
-          <ng-template #default></ng-template>
         </th>
-
-        <!-- <th class="p-2 text-center">Address</th> -->
-        <th class="p-2 text-center">City</th>
+        <th class="p-2 text-center" (click)="onclick('addresses.0.city')">
+          City
+          <ng-container
+            [ngTemplateOutlet]="arrows"
+            [ngTemplateOutletContext]="{ propertyName: 'addresses.0.city' }"
+          ></ng-container>
+        </th>
         <th class="p-2 text-center">State</th>
-        <!-- <th class="p-2 text-center">Zipcode</th>
-      <th class="p-2 text-center">Email</th>
-      <th class="p-2 text-center">Phone</th> -->
       </tr>
     </thead>
     <tbody>
@@ -61,16 +38,9 @@
       >
         <td class="p-2 text-center">{{ contact.firstName }}</td>
         <td class="p-2 text-center">{{ contact.lastName }}</td>
-        <!-- <td class="p-2 text-center">{{ contact.addresses[0]?.streetAddress }}</td> -->
         <td class="p-2 text-center">{{ contact.addresses[0]?.city }}</td>
         <td class="p-2 text-center">{{ contact.addresses[0]?.state }}</td>
-        <!-- <td class="p-2 text-center">{{ contact.addresses[0]?.zipCode }}</td> -->
-        <!-- <td class="p-2 text-center">
-        {{ contact.emailAddresses[0]?.emailAddress }}
-      </td>
-      <td class="p-2 text-center">
-        {{ contact.phoneNumbers[0]?.phoneNumber }}
-      </td> -->
+
         <td>
           <button
             class="bg-teal-500 hover:bg-teal-700 text-white py-2 px-3 rounded-full"
@@ -78,18 +48,25 @@
             <a [routerLink]="['/details', contact.id]">Detail</a>
           </button>
         </td>
-
-        <!-- Move to Detail view later  -->
-        <!-- <button class="p-2 text-center">
-        <fa-icon [icon]="faPencil"></fa-icon>
-      </button>
-      <button class="p-2 text-center">
-        <fa-icon [icon]="faSave"></fa-icon>
-      </button>
-      <button class="p-2 text-center">
-        <fa-icon [icon]="faTrashCan" (click)="onDelete(contact)"></fa-icon>
-      </button> -->
       </tr>
     </tbody>
   </table>
 </div>
+
+<!-- ng-template stays outside of body  -->
+<ng-template #arrows let-propertyName="propertyName">
+  <ng-container
+    [ngTemplateOutlet]="
+      sortDirection.getValue() === sortDirectionEnum.Ascending &&
+      sortedPropertyName.getValue() === propertyName
+        ? up
+        : sortDirection.getValue() === sortDirectionEnum.Descending &&
+          sortedPropertyName.getValue() === propertyName
+        ? down
+        : default
+    "
+  ></ng-container
+></ng-template>
+<ng-template #down><fa-icon [icon]="faArrowDown"></fa-icon></ng-template>
+<ng-template #up><fa-icon [icon]="faArrowUp"></fa-icon></ng-template>
+<ng-template #default></ng-template>

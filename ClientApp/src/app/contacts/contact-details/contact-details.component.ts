@@ -6,7 +6,7 @@ import {
   faSave,
   faArrowLeft,
 } from '@fortawesome/free-solid-svg-icons';
-import { BehaviorSubject } from 'rxjs';
+
 import { ContactsService } from '../contacts.service';
 
 @Component({
@@ -20,30 +20,28 @@ export class ContactDetailsComponent implements OnInit {
   public faArrowLeft = faArrowLeft;
   public faSave = faSave;
   public contactsList: any[] = [];
-  contact: any;
+  public contact: any;
   constructor(
-    private Activatedroute: ActivatedRoute,
+    private activatedroute: ActivatedRoute,
     private contactsService: ContactsService
   ) {}
 
   ngOnInit(): void {
-    const id = this.Activatedroute.snapshot.paramMap.get('id');
-    console.log(id);
-    const contact = this.contactsService.getContactById(id);
-    contact.subscribe((response) => {
-      console.log(response);
+    const id = this.activatedroute.snapshot.paramMap.get('id');
+    this.contact = this.contactsService.getContactById(id).subscribe((data) => {
+      this.contact = data;
+      console.log(data);
     });
-    // console.log(contact);
   }
 
-  onDelete(contact: any) {
-    this.contactsService
-      .deleteContact(contact)
-      .subscribe(
-        () =>
-          (this.contactsList = this.contactsList.filter(
-            (eachcontact) => eachcontact.id !== contact.id
-          ))
-      );
-  }
+  // onDelete(contact: any) {
+  //   this.contactsService
+  //     .deleteContact(contact)
+  //     .subscribe(
+  //       () =>
+  //         (this.contactsList = this.contactsList.filter(
+  //           (eachcontact) => eachcontact.id !== contact.id
+  //         ))
+  //     );
+  // }
 }
