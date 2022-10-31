@@ -105,6 +105,8 @@ export class NewContactsComponent implements OnInit {
             }
             console.log(this.contactForm.errors);
             this.contactsService.addContact(this.contactForm.value).subscribe();
+            this.contactForm.reset();
+            alert('Submission Successful!');
           }
         } else {
           this.contactForm.setErrors(response);

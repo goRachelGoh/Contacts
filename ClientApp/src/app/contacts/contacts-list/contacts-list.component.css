@@ -2,15 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
+.container {
+  width: 75%;
+  padding: 20px;
+  margin: 0 auto;
+}
 table {
   width: 85%;
   color: #115e59;
 }
 
-.container {
-  padding: 20px;
+.icon {
+  color: #115e59;
+}
+.icon:hover {
+  color: #14b8a6;
 }
 
-.right-align {
-  float: right;
+.add-User {
+  text-align: right;
+}
+
+.header {
+  margin: 0 auto;
+  display: block;
+  font-size: 30px;
+  color: #115e59;
+  font-weight: bold;
+  text-align: left;
 }

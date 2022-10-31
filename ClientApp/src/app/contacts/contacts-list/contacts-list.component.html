@@ -1,10 +1,13 @@
-<div class="container">
-  <button class="right-align w-2/3">
-    <a class="font-semibold p-6 text-2xl" [routerLink]="['/new']"
-      ><fa-icon [icon]="faUserPlus"></fa-icon
-    ></a>
-  </button>
-  <table class="m-auto w-2/3 table-auto">
+<div class="container add-User">
+  <div class="flex flex-row">
+    <div class="header">DIRECTORY</div>
+    <button>
+      <a [routerLink]="['/new']"
+        ><fa-icon [icon]="faUserPlus" class="fa-lg icon"></fa-icon
+      ></a>
+    </button>
+  </div>
+  <table class="m-auto">
     <thead>
       <tr class="border-b-2 border-teal-800">
         <th class="p-2 text-center" (click)="onclick('firstName')">
