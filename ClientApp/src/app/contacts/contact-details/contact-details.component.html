@@ -14,7 +14,11 @@
         <fa-icon [icon]="faSave" class="fa-lg icon"></fa-icon>
       </button>
       <button class="p-2">
-        <fa-icon [icon]="faTrashCan" class="fa-lg icon"></fa-icon>
+        <fa-icon
+          [icon]="faTrashCan"
+          class="fa-lg icon"
+          (click)="onDelete(contact)"
+        ></fa-icon>
       </button>
     </div>
   </div>

@@ -23,6 +23,7 @@ export class ContactDetailsComponent implements OnInit {
   public contact: any;
   constructor(
     private activatedroute: ActivatedRoute,
+    private router: Router,
     private contactsService: ContactsService
   ) {}
 
@@ -34,14 +35,17 @@ export class ContactDetailsComponent implements OnInit {
     });
   }
 
-  // onDelete(contact: any) {
-  //   this.contactsService
-  //     .deleteContact(contact)
-  //     .subscribe(
-  //       () =>
-  //         (this.contactsList = this.contactsList.filter(
-  //           (eachcontact) => eachcontact.id !== contact.id
-  //         ))
-  //     );
-  // }
+  // TODO: alert prints before the exception, Need to change the order!! --> when server is down,
+  onDelete(contact: any) {
+    this.contactsService
+      .deleteContact(contact)
+      .subscribe(
+        () =>
+          (this.contactsList = this.contactsList.filter(
+            (eachcontact) => eachcontact.id !== contact.id
+          ))
+      );
+    alert('Deletion Successful! Going back to Main page');
+    this.router.navigate(['/home']);
+  }
 }

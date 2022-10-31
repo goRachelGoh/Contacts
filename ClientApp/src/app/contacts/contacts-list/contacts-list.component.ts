@@ -91,18 +91,6 @@ export class ContactsListComponent implements OnInit {
     // });
   }
 
-  //Delete a contact when clicked
-  onDelete(contact: any) {
-    this.contactsService
-      .deleteContact(contact)
-      .subscribe(
-        () =>
-          (this.contactsList = this.contactsList.filter(
-            (eachcontact) => eachcontact.id !== contact.id
-          ))
-      );
-  }
-
   onclick(propertyName: string) {
     this.sortedPropertyName.next(propertyName);
   }
