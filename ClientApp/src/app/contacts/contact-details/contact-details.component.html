@@ -27,18 +27,18 @@
   <div class="subHeader">job title or compnay name goes here</div>
   <div class="flex flex-row justify-around">
     <div class="flex flex-col item-column">
-      <div class="subHeading">ADDRESS</div>
+      <div class="column-header">ADDRESS</div>
       <div *ngFor="let subItem of contact.addresses" class="per-item">
         <div>{{ subItem.streetAddress }}</div>
         <div>{{ subItem.city }} {{ subItem.state }} {{ subItem.zipCode }}</div>
       </div>
     </div>
     <div class="flex flex-col item-column">
-      <div class="subHeading">E-MAIL</div>
+      <div class="column-header">E-MAIL</div>
       <div *ngFor="let subItem of contact.emailAddresses" class="per-item">
         <div>{{ subItem.emailAddress }}</div>
       </div>
-      <div class="subHeading">MOBILE</div>
+      <div class="column-header">MOBILE</div>
       <div *ngFor="let subItem of contact.phoneNumbers" class="per-item">
         <div>{{ subItem.phoneNumber }}</div>
       </div>

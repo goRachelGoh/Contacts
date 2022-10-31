@@ -1,9 +1,11 @@
 <div class="container">
   <button class="p-2 text-center">
-    <a [routerLink]="['/home']"><fa-icon [icon]="faArrowLeft"></fa-icon></a>
+    <a [routerLink]="['/home']"
+      ><fa-icon [icon]="faArrowLeft" class="icon fa-lg"></fa-icon
+    ></a>
   </button>
   <form
-    class="px-10 w-9/12 m-auto text-teal-800 font-semibold"
+    class="px-10 m-auto text-teal-800 font-semibold"
     [formGroup]="contactForm"
     (ngSubmit)="onSubmit()"
   >
@@ -16,10 +18,10 @@
         <p class="font-bold">Warning</p>
         <p>Name is already registered. Check the data again.</p>
       </div>
-      <h1 class="text-2xl pb-4">Add Contact</h1>
+      <h1 class="header">ADD A NEW CONTACT</h1>
     </div>
     <div class="flex flex-col">
-      <label for="firstname" class="pt-2 pb-1">First Name</label>
+      <label for="firstname" class="subHeader">First Name</label>
       <input
         type="text"
         id="firstname"
@@ -45,7 +47,7 @@
       </small>
     </div>
     <div class="flex flex-col">
-      <div class="pt-2 pb-1">Last Name</div>
+      <div class="subHeader">Last Name</div>
       <input
         type="text"
         id="lastname"
@@ -71,7 +73,9 @@
       </small>
     </div>
     <div>
-      <h2 lass="pt-5 pb-1">Address</h2>
+      <h2 class="subHeader">Address</h2>
+      <div class="flex-wrap"></div>
+
       <div class="flex flex-col">
         <div
           *ngFor="let group of contactForm.get('addresses') | asFormGroupArray"
@@ -93,15 +97,26 @@
                 [formControl]="group.get('city') | asFormControl"
               />
             </div>
-            <div class="flex flex-col w-2/6">
+            <div class="flex flex-col w-1/6">
               <div class="pt-2 pb-1">State</div>
-              <input
+              <!-- <input
                 type="text"
                 id="state"
                 [formControl]="group.get('state') | asFormControl"
-              />
+              /> -->
+              <select
+                class="form-control"
+                [formControl]="group.get('state') | asFormControl"
+                [value]="states"
+                #person_name
+              >
+                <option value="undefined"></option>
+                <option *ngFor="let state of states">
+                  {{ state }}
+                </option>
+              </select>
             </div>
-            <div class="flex flex-col w-2/6">
+            <div class="flex flex-col w-1/6">
               <div class="pt-2 pb-1">Zipcode</div>
               <input
                 type="text"
@@ -122,13 +137,14 @@
             </div>
           </div>
         </div>
-        <button type="button" (click)="addAddress()">Add a row</button>
+        <div>
+          <button type="button" (click)="addAddress()">+ Add Address</button>
+        </div>
       </div>
     </div>
 
     <div>
-      <h2>Contact Detail</h2>
-      <div class="pt-2 pb-1">Email</div>
+      <div class="subHeader">Email</div>
       <div
         *ngFor="
           let group of contactForm.get('emailAddresses') | asFormGroupArray;
@@ -154,14 +170,15 @@
         </small>
         <fa-icon
           [icon]="faTrashCan"
+          class="trash-icon pl-3"
           (click)="deleteEmail(addEmailAddress)"
           *ngIf="!isFirst"
         ></fa-icon>
       </div>
 
-      <button type="button" (click)="addEmailAddress()">+ Add</button>
+      <button type="button" (click)="addEmailAddress()">+ Add Email</button>
 
-      <div class="pt-2 pb-1">Phone</div>
+      <div class="subHeader">Phone</div>
       <div
         *ngFor="
           let group of contactForm.get('phoneNumbers') | asFormGroupArray;
@@ -177,6 +194,7 @@
         />
         <fa-icon
           [icon]="faTrashCan"
+          class="trash-icon pl-3"
           (click)="deletePhoneNumber(addPhoneNumber)"
           *ngIf="!isFirst"
         ></fa-icon>
@@ -203,23 +221,21 @@
             </small>
           </div>
         </div>
-
-        <button type="button" (click)="addPhoneNumber()">+ Add</button>
-
-        <div class="flex flex-row justify-between pt-10">
-          <button
-            type="submit"
-            class="w-20 font-semibold rounded-lg bg-emerald-500 text-zinc-100 p-2"
-          >
-            Submit
-          </button>
-          <button
-            class="w-20 font-semibold rounded-lg bg-rose-500 p-2 text-zinc-100"
-            type="reset"
-          >
-            Clear
-          </button>
-        </div>
+      </div>
+      <button type="button" (click)="addPhoneNumber()">+ Add Phone</button>
+      <div class="flex flex-row justify-between pt-10">
+        <button
+          type="submit"
+          class="w-20 font-semibold rounded-lg bg-emerald-500 text-zinc-100 p-2"
+        >
+          Submit
+        </button>
+        <button
+          class="w-20 font-semibold rounded-lg bg-rose-500 p-2 text-zinc-100"
+          type="reset"
+        >
+          Clear
+        </button>
       </div>
     </div>
   </form>
