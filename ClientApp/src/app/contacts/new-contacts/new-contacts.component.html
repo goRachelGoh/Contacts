@@ -72,6 +72,14 @@
         Last name cannot have a space.
       </small>
     </div>
+    <div class="flex flex-col">
+      <div class="subHeader">Company</div>
+      <input
+        type="text"
+        id="lastname"
+        [formControl]="contactForm.get('company') | asFormControl"
+      />
+    </div>
     <div>
       <h2 class="subHeader">Address</h2>
       <div class="flex-wrap"></div>

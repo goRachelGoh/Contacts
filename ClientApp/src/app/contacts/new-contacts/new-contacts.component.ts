@@ -73,6 +73,7 @@ export class NewContactsComponent implements OnInit {
   public contactForm = this.formBuilder.group({
     firstName: ['', [Validators.required, Validators.pattern('^[a-zA-Z\\-]+')]],
     lastName: ['', [Validators.required, Validators.pattern('^[a-zA-Z\\-]+')]], //must be letters only
+    company: [''],
     addresses: this.formBuilder.array([this.buildAddressForm()]),
     emailAddresses: this.formBuilder.array([this.buildEmailForm()]),
     phoneNumbers: this.formBuilder.array([this.buildPhoneNumberForm()]), //number only

@@ -30,13 +30,11 @@ namespace Project_2_5
                 .Entity<Phone>()
                 .HasOne(e => e.Contact)
                 .WithMany(e => e.PhoneNumbers)
-
                 .OnDelete(DeleteBehavior.Restrict);
             modelBuilder
                 .Entity<Email>()
                 .HasOne(e => e.Contact)
                 .WithMany(e => e.EmailAddresses)
-
                 .OnDelete(DeleteBehavior.Restrict);
         }       
     }
