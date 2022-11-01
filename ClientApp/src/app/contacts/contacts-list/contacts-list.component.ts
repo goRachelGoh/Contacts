@@ -7,7 +7,6 @@ import {
   faSave,
   faArrowUp,
   faArrowDown,
-  faArrowLeft,
   faUserPlus,
 } from '@fortawesome/free-solid-svg-icons';
 import { BehaviorSubject, pairwise } from 'rxjs';
@@ -93,5 +92,13 @@ export class ContactsListComponent implements OnInit {
 
   onclick(propertyName: string) {
     this.sortedPropertyName.next(propertyName);
+  }
+
+  // Get the input value when onSearchTextChanged() triggers
+  searchText: string = '';
+  onSearchTextEntered(searchValue: string) {
+    this.searchText = searchValue;
+    console.log(this.searchText);
+    //Bind this method with Event in nav-menu component
   }
 }

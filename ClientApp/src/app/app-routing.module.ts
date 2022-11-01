@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
+import { NavMenuComponent } from './contacts/nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { ContactsService } from './contacts/contacts.service';
 import { NewContactsComponent } from './contacts/new-contacts/new-contacts.component';

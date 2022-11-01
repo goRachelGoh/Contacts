@@ -8,12 +8,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { PipesModule } from '../pipes/pipes.module';
 import { ContactDetailsComponent } from './contact-details/contact-details.component';
+import { NavMenuComponent } from './nav-menu/nav-menu.component';
 
 @NgModule({
   declarations: [
     ContactsListComponent,
     NewContactsComponent,
     ContactDetailsComponent,
+    NavMenuComponent,
   ],
   imports: [
     CommonModule,
@@ -27,6 +29,7 @@ import { ContactDetailsComponent } from './contact-details/contact-details.compo
     ContactsListComponent,
     NewContactsComponent,
     ContactDetailsComponent,
+    NavMenuComponent,
   ],
 })
 export class ContactsModule {}

@@ -1,0 +1,17 @@
+<header>
+  <nav
+    class="nav flex items-center justify-center flex-wrap bg-teal-800 text-zinc-100"
+  >
+    <div class="px-3 searchBar">
+      <input
+        class="px-3 rounded-full"
+        type="text"
+        id="directory"
+        name="directory"
+        placeholder="Search Directory..."
+        [(ngModel)]="enteredSearchValue"
+        (input)="onSearchTextChanged()"
+      />
+    </div>
+  </nav>
+</header>
