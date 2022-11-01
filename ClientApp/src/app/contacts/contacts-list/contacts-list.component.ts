@@ -49,7 +49,7 @@ export class ContactsListComponent implements OnInit {
     console.log(this.contactsList);
 
     this.sortedPropertyName.pipe(pairwise()).subscribe((propertyNames) => {
-      const [prev, current] = propertyNames;
+      const [prev, current] = propertyNames; // Destructuring assignment, propertyName = array of values
       if (prev !== current) {
         this.sortDirection.next(SortDirection.Default);
       }
@@ -80,14 +80,14 @@ export class ContactsListComponent implements OnInit {
     });
   }
 
-  traverseObject(object: any, path: string): any {
-    // const propertyName = path.split('.');
-    // propertyName.forEach((item) => {
-    //   if (item.object === undefined) {
-    //     return `${item}`;
-    //   }
-    //   return `${item.object}`;
-    // });
+  traverseObject(object: any, path: string): string {
+    const pathArr = path.split('.');
+    let finalValue = object;
+    // console.log(object[pathArr[0]][pathArr[1]][pathArr[2]]);
+    for (let i = 0; i < pathArr.length; i++) {
+      finalValue = finalValue[pathArr[i]];
+    }
+    return finalValue;
   }
 
   onclick(propertyName: string) {
@@ -98,7 +98,5 @@ export class ContactsListComponent implements OnInit {
   searchText: string = '';
   onSearchTextEntered(searchValue: string) {
     this.searchText = searchValue;
-    console.log(this.searchText);
-    //Bind this method with Event in nav-menu component
   }
 }

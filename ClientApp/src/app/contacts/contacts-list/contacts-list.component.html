@@ -32,7 +32,13 @@
             [ngTemplateOutletContext]="{ propertyName: 'addresses.0.city' }"
           ></ng-container>
         </th>
-        <th class="p-2 text-center">State</th>
+        <th class="p-2 text-center" (click)="onclick('addresses.0.state')">
+          <ng-container
+            [ngTemplateOutlet]="arrows"
+            [ngTemplateOutletContext]="{ propertyName: 'addresses.0.state' }"
+          ></ng-container
+          >State
+        </th>
       </tr>
     </thead>
     <tbody>
