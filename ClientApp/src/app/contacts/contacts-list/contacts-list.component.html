@@ -56,14 +56,20 @@
         <ng-container
           *ngIf="
             searchText === '' ||
-            contact.firstName.toLowerCase().includes(searchText)
+            contact.firstName.toLowerCase().includes(searchText.toLowerCase())
           "
         >
-          <td class="p-2 text-center">{{ contact.firstName }}</td>
-          <td class="p-2 text-center">{{ contact.lastName }}</td>
-          <td class="p-2 text-center">{{ contact.company }}</td>
-          <td class="p-2 text-center">{{ contact.addresses[0]?.city }}</td>
-          <td class="p-2 text-center">{{ contact.addresses[0]?.state }}</td>
+          <!-- contactsList.filter(contact => JSON.stringify(contact.toLowerCase()).includes(searchText.toLowerCase())) -->
+
+          <td class="p-2 text-center">{{ contact.firstName | slice: 0:24 }}</td>
+          <td class="p-2 text-center">{{ contact.lastName | slice: 0:24 }}</td>
+          <td class="p-2 text-center">{{ contact.company | slice: 0:24 }}</td>
+          <td class="p-2 text-center">
+            {{ contact.addresses[0]?.city | slice: 0:45 }}
+          </td>
+          <td class="p-2 text-center">
+            {{ contact.addresses[0]?.state | slice: 0:24 }}
+          </td>
 
           <td>
             <button

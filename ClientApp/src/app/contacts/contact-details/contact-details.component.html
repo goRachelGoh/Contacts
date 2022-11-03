@@ -28,7 +28,8 @@
   <div class="header">
     {{ contact.firstName | uppercase }} {{ contact.lastName }}
   </div>
-  <div class="subHeader">job title or compnay name goes here</div>
+  <div class="subHeader" *ngIf="contact.company === ''">N/A</div>
+  <div class="subHeader">{{ contact.company }}</div>
   <div class="flex flex-row justify-around">
     <div class="flex flex-col item-column">
       <div class="column-header">ADDRESS</div>

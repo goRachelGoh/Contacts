@@ -16,7 +16,7 @@ namespace Project_2_5.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.7")
+                .HasAnnotation("ProductVersion", "6.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("Project_2_5.Address", b =>
@@ -53,6 +53,10 @@ namespace Project_2_5.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
+                    b.Property<string>("Company")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<string>("FirstName")
                         .HasColumnType("longtext");
 
@@ -70,7 +74,7 @@ namespace Project_2_5.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid>("ContactId")
+                    b.Property<Guid?>("ContactId")
                         .HasColumnType("char(36)");
 
                     b.Property<string>("EmailAddress")
@@ -89,7 +93,7 @@ namespace Project_2_5.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid>("ContactId")
+                    b.Property<Guid?>("ContactId")
                         .HasColumnType("char(36)");
 
                     b.Property<string>("PhoneNumber")
@@ -118,8 +122,7 @@ namespace Project_2_5.Migrations
                     b.HasOne("Project_2_5.Contact", "Contact")
                         .WithMany("EmailAddresses")
                         .HasForeignKey("ContactId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Contact");
                 });
@@ -129,8 +132,7 @@ namespace Project_2_5.Migrations
                     b.HasOne("Project_2_5.Contact", "Contact")
                         .WithMany("PhoneNumbers")
                         .HasForeignKey("ContactId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Contact");
                 });
