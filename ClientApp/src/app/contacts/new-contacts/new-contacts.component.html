@@ -18,7 +18,11 @@
         <p class="font-bold">Warning</p>
         <p>Name is already registered. Check the data again.</p>
       </div>
-      <h1 class="header">ADD A NEW CONTACT</h1>
+      <h1 class="header">
+        {{
+          editMode == true ? "UPDATE AN EXISTING CONTACT" : "ADD A NEW CONTACT"
+        }}
+      </h1>
     </div>
     <div class="flex flex-col">
       <label for="firstname" class="subHeader">First Name</label>
@@ -107,16 +111,10 @@
             </div>
             <div class="flex flex-col w-1/6">
               <div class="pt-2 pb-1">State</div>
-              <!-- <input
-                type="text"
-                id="state"
-                [formControl]="group.get('state') | asFormControl"
-              /> -->
               <select
                 class="form-control"
                 [formControl]="group.get('state') | asFormControl"
                 [value]="states"
-                #person_name
               >
                 <option value="undefined"></option>
                 <option *ngFor="let state of states">
@@ -236,7 +234,7 @@
           type="submit"
           class="w-20 font-semibold rounded-lg bg-emerald-500 text-zinc-100 p-2"
         >
-          Submit
+          {{ editMode == true ? "Update" : "Submit" }}
         </button>
         <button
           class="w-20 font-semibold rounded-lg bg-rose-500 p-2 text-zinc-100"

@@ -9,6 +9,7 @@ import {
 import { faArrowLeft, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { ContactsService } from '../contacts.service';
 import { Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-new-contacts',
@@ -78,22 +79,37 @@ export class NewContactsComponent implements OnInit {
     emailAddresses: this.formBuilder.array([this.buildEmailForm()]),
     phoneNumbers: this.formBuilder.array([this.buildPhoneNumberForm()]), //number only
   });
+  public contact: any;
+  editMode: boolean = false;
 
   constructor(
+    private activatedroute: ActivatedRoute,
     private contactsService: ContactsService,
     private formBuilder: FormBuilder
   ) {}
 
   ngOnInit(): void {
-    this.contactForm.valueChanges.subscribe(() => {
-      console.log(this.contactForm);
-    });
+    const id = this.activatedroute.snapshot.paramMap.get('id');
+    if (id) {
+      this.editMode = true;
+      this.contact = this.contactsService
+        .getContactById(id)
+        .subscribe((data) => {
+          this.contactForm.patchValue(data);
+        });
+      console.log(this.contact);
+    } else {
+      this.contactForm.valueChanges.subscribe(() => {
+        console.log(this.contactForm);
+      });
+    }
   }
 
   onSubmit() {
+    //if id exist = call updateContact() from the service
+    // otherwise run below
     this.contactsService
       .findDuplicateContact(this.contactForm.value)
-
       .subscribe((response) => {
         if (response === null) {
           {
@@ -115,7 +131,6 @@ export class NewContactsComponent implements OnInit {
         }
       });
   }
-
   private buildAddressForm(): FormGroup {
     return this.formBuilder.group({
       streetAddress: ['', Validators.required],

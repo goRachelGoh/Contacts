@@ -45,6 +45,11 @@
 .icon {
   color: #115e59;
 }
+
 .icon:hover {
   color: #14b8a6;
+}
+
+button:disabled {
+  background-color: red;
 }

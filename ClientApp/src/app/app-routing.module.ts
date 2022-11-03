@@ -20,6 +20,7 @@ const routes: Routes = [
     resolve: { contacts: ContactsService },
   },
   { path: 'new', component: NewContactsComponent },
+  { path: 'edit/:id', component: NewContactsComponent },
   { path: 'details/:id', component: ContactDetailsComponent },
 ];
 @NgModule({

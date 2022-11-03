@@ -47,6 +47,11 @@ export class ContactsService implements Resolve<any[]> {
     return this.http.post<any>(url, contact);
   }
 
+  public updateContact(id: string, contact: any) {
+    const url = `${this.url}/${id}`;
+    return this.http.put(url, contact);
+  }
+
   public findDuplicateContact(
     contact: any
   ): Observable<ValidationErrors | null> {
