@@ -105,13 +105,13 @@ export class NewContactsComponent implements OnInit {
   }
 
   onSubmit() {
-    // TODO if id exist = call updateContact() from the service
     if (this.id) {
       this.contactsService
         .updateContact(this.id, this.contactForm.value)
         .subscribe();
+      this.contactForm.reset();
+      alert('Update Successful!');
     } else {
-      // TODO otherwise run below
       this.contactsService
         .findDuplicateContact(this.contactForm.value)
         .subscribe((response) => {

@@ -50,4 +50,28 @@ public class ContactService : IContactService
       } 
     }
 
+
+    async public Task UpdateContact(Guid id, Contact contact)
+    {
+      var currentContact = await context.Contacts.FindAsync(id);
+      var transaction = await context.Database.BeginTransactionAsync();
+      try 
+      {
+        currentContact.FirstName = contact.FirstName;
+        currentContact.LastName = contact.LastName;
+        currentContact.Company = contact.Company;
+        // currentContact.Addresses = contact.Addresses;
+        // currentContact.EmailAddresses[0].EmailAddress = contact.EmailAddresses[0].EmailAddress;
+        // currentContact.PhoneNumbers = contact.PhoneNumbers;
+
+        await context.SaveChangesAsync();
+
+        await context.Database.CommitTransactionAsync();
+      }
+      catch (Exception)
+      {
+        await transaction.RollbackAsync();
+      } 
+    }
+
 }

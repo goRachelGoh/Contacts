@@ -9,4 +9,6 @@ public interface IContactService
 
     public Task AddContact(Contact contact);
     
+    public Task UpdateContact(Guid id, Contact contact);
+    
 }

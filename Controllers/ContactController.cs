@@ -60,6 +60,24 @@ public class ContactController : ControllerBase
         return Ok();
     }
 
+    [HttpPut]   
+    [Route("{id:Guid}")]
+    async public Task<ActionResult<Contact>> Put(Guid id, [FromBody] Contact contact)
+    {
+        var contactToUpdate = await contactRepository.GetContactbyID(id);
+        contact.Id = id;
+        if (id != contactToUpdate.Id)
+        {
+            return BadRequest("ID is not matching");
+        }
+        if (contactToUpdate == null) {
+            return BadRequest("Contact Not Found");
+        }
+
+        await this.contactService.UpdateContact(id, contact);
+        return Ok("Success");
+    }
+
     
     [HttpPost]   
     [Route("duplicate")]
