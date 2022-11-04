@@ -81,7 +81,7 @@ export class NewContactsComponent implements OnInit {
   });
   public contact: any;
   editMode: boolean = false;
-
+  public id = this.activatedroute.snapshot.paramMap.get('id');
   constructor(
     private activatedroute: ActivatedRoute,
     private contactsService: ContactsService,
@@ -89,11 +89,10 @@ export class NewContactsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const id = this.activatedroute.snapshot.paramMap.get('id');
-    if (id) {
+    if (this.id) {
       this.editMode = true;
       this.contact = this.contactsService
-        .getContactById(id)
+        .getContactById(this.id)
         .subscribe((data) => {
           this.contactForm.patchValue(data);
         });
@@ -106,31 +105,40 @@ export class NewContactsComponent implements OnInit {
   }
 
   onSubmit() {
-    //if id exist = call updateContact() from the service
-    // otherwise run below
-    this.contactsService
-      .findDuplicateContact(this.contactForm.value)
-      .subscribe((response) => {
-        if (response === null) {
-          {
-            if (
-              this.contactForm?.errors &&
-              this.contactForm.hasError('isDuplicatedContact')
-            ) {
-              delete this.contactForm.errors['isDuplicatedContact'];
-              this.contactForm.updateValueAndValidity();
+    // TODO if id exist = call updateContact() from the service
+    if (this.id) {
+      this.contactsService
+        .updateContact(this.id, this.contactForm.value)
+        .subscribe();
+    } else {
+      // TODO otherwise run below
+      this.contactsService
+        .findDuplicateContact(this.contactForm.value)
+        .subscribe((response) => {
+          if (response === null) {
+            {
+              if (
+                this.contactForm?.errors &&
+                this.contactForm.hasError('isDuplicatedContact')
+              ) {
+                delete this.contactForm.errors['isDuplicatedContact'];
+                this.contactForm.updateValueAndValidity();
+              }
+              console.log(this.contactForm.errors);
+              this.contactsService
+                .addContact(this.contactForm.value)
+                .subscribe();
+              this.contactForm.reset();
+              alert('Submission Successful!');
             }
-            console.log(this.contactForm.errors);
-            this.contactsService.addContact(this.contactForm.value).subscribe();
-            this.contactForm.reset();
-            alert('Submission Successful!');
+          } else {
+            this.contactForm.setErrors(response);
+            console.log(response);
           }
-        } else {
-          this.contactForm.setErrors(response);
-          console.log(response);
-        }
-      });
+        });
+    }
   }
+
   private buildAddressForm(): FormGroup {
     return this.formBuilder.group({
       streetAddress: ['', Validators.required],
