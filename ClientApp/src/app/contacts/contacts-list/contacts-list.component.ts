@@ -87,7 +87,7 @@ export class ContactsListComponent implements OnInit {
     for (let i = 0; i < pathArr.length; i++) {
       finalValue = finalValue[pathArr[i]];
     }
-    return finalValue;
+    return finalValue || '';
   }
 
   onclick(propertyName: string) {

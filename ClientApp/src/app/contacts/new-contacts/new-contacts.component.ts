@@ -10,6 +10,10 @@ import { faArrowLeft, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { ContactsService } from '../contacts.service';
 import { Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { Contact } from '../models/contact';
+import { Address } from '../models/address';
+import { Email } from '../models/email';
+import { Phone } from '../models/phone';
 
 @Component({
   selector: 'app-new-contacts',
@@ -71,14 +75,7 @@ export class NewContactsComponent implements OnInit {
   ];
   public faTrashCan = faTrashCan;
   public faArrowLeft = faArrowLeft;
-  public contactForm = this.formBuilder.group({
-    firstName: ['', [Validators.required, Validators.pattern('^[a-zA-Z\\-]+')]],
-    lastName: ['', [Validators.required, Validators.pattern('^[a-zA-Z\\-]+')]], //must be letters only
-    company: [''],
-    addresses: this.formBuilder.array([this.buildAddressForm()]),
-    emailAddresses: this.formBuilder.array([this.buildEmailForm()]),
-    phoneNumbers: this.formBuilder.array([this.buildPhoneNumberForm()]), //number only
-  });
+  public contactForm = new FormGroup({});
   public contact: any;
   editMode: boolean = false;
   public id = this.activatedroute.snapshot.paramMap.get('id');
@@ -94,9 +91,9 @@ export class NewContactsComponent implements OnInit {
       this.contact = this.contactsService
         .getContactById(this.id)
         .subscribe((data) => {
-          this.contactForm.patchValue(data);
+          this.initForm(data);
+          console.log(this.contactForm.value);
         });
-      console.log(this.contact);
     } else {
       this.contactForm.valueChanges.subscribe(() => {
         console.log(this.contactForm);
@@ -139,27 +136,33 @@ export class NewContactsComponent implements OnInit {
     }
   }
 
-  private buildAddressForm(): FormGroup {
+  private buildAddressForm(address?: Address): FormGroup {
     return this.formBuilder.group({
-      streetAddress: ['', Validators.required],
-      city: ['', Validators.required],
-      state: ['', Validators.required],
-      zipcode: ['', [Validators.maxLength(5), Validators.pattern('^[0-9]+')]], //5 number
+      streetAddress: [address?.streetAddress ?? '', Validators.required],
+      city: [address?.city ?? '', Validators.required],
+      state: [address?.state ?? '', Validators.required],
+      zipcode: [
+        address?.zipCode ?? '',
+        [Validators.maxLength(5), Validators.pattern('^[0-9]+')],
+      ], //5 number
     });
   }
 
   //emails cannot be duplicate
-  private buildEmailForm(): FormGroup {
+  private buildEmailForm(email?: Email): FormGroup {
     return this.formBuilder.group({
-      emailAddress: ['', [Validators.required, Validators.email]],
+      emailAddress: [
+        email?.emailAddress ?? '',
+        [Validators.required, Validators.email],
+      ],
     });
   }
 
   //phonenumbers cannot be duplicate
-  private buildPhoneNumberForm(): FormGroup {
+  private buildPhoneNumberForm(phone?: Phone): FormGroup {
     return this.formBuilder.group({
       phoneNumber: [
-        '',
+        phone?.phoneNumber ?? '',
         [
           Validators.required,
           Validators.pattern('^[0-9]{10,}'),
@@ -210,5 +213,34 @@ export class NewContactsComponent implements OnInit {
       return result.length <= 1 ? null : { isDuplicatedPhoneNumber: true };
     }
     return null;
+  }
+
+  private initForm(contact?: Contact) {
+    this.contactForm = this.formBuilder.group({
+      firstName: [
+        contact?.firstName ?? '',
+        [Validators.required, Validators.pattern('^[a-zA-Z\\-]+')],
+      ],
+      lastName: [
+        contact?.lastName ?? '',
+        [Validators.required, Validators.pattern('^[a-zA-Z\\-]+')],
+      ],
+      company: [contact?.company ?? ''],
+      addresses: this.formBuilder.array(
+        contact?.addresses.map((a) => this.buildAddressForm(a)) ?? [
+          this.buildAddressForm(),
+        ]
+      ),
+      emailAddresses: this.formBuilder.array(
+        contact?.emailAddresses.map((email) => this.buildEmailForm(email)) ?? [
+          this.buildEmailForm(),
+        ]
+      ),
+      phoneNumbers: this.formBuilder.array(
+        contact?.phoneNumbers.map((p) => this.buildPhoneNumberForm(p)) ?? [
+          this.buildPhoneNumberForm(),
+        ]
+      ),
+    });
   }
 }

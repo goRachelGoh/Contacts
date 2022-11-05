@@ -65,7 +65,6 @@ public class ContactController : ControllerBase
     async public Task<ActionResult<Contact>> Put(Guid id, [FromBody] Contact contact)
     {
         var contactToUpdate = await contactRepository.GetContactbyID(id);
-        contact.Id = id;
         if (id != contactToUpdate.Id)
         {
             return BadRequest("ID is not matching");
@@ -75,7 +74,7 @@ public class ContactController : ControllerBase
         }
 
         await this.contactService.UpdateContact(id, contact);
-        return Ok("Success");
+        return Ok();
     }
 
     

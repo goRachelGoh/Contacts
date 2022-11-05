@@ -48,15 +48,4 @@ export class ContactDetailsComponent implements OnInit {
     alert('Deletion Successful! Going back to Main page');
     this.router.navigate(['/home']);
   }
-
-  // onEdit(id: any) {
-  //   // redirect to new-contacts form
-  //   this.router.navigate(['/home']);
-  //   // render all data
-
-  //   // Read the new value
-  //   const contact = '';
-  //   // on submit button clicked for button push through API on save
-  //   // this.contactsService.updateContact(id, contact).subscribe();
-  // }
 }

@@ -23,6 +23,7 @@ public class ContactRepository : IContactRepository
       async public Task<Contact> GetContactbyID(Guid id)
   {
       return await this.context.Contacts
+      .AsNoTracking()
       .Where(contact => contact.Id == id)
       .Include(contact=>contact.Addresses)
       .Include(contact=>contact.EmailAddresses)

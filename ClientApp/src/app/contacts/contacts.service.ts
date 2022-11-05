@@ -7,6 +7,7 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 import { Observable } from 'rxjs';
+import { Contact } from './models/contact';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -29,22 +30,22 @@ export class ContactsService implements Resolve<any[]> {
     return this.getContacts();
   }
 
-  public getContacts(): Observable<any[]> {
-    return this.http.get<any[]>('/api/contacts');
+  public getContacts(): Observable<Contact[]> {
+    return this.http.get<Contact[]>('/api/contacts');
   }
 
-  public getContactById(id: any): Observable<any[]> {
-    return this.http.get<any[]>(`/api/contacts/${id}`);
+  public getContactById(id: any): Observable<Contact> {
+    return this.http.get<Contact>(`/api/contacts/${id}`);
   }
 
-  public deleteContact(contact: any): Observable<any[]> {
+  public deleteContact(contact: Contact): Observable<any[]> {
     const url = `${this.url}/${contact.id}`;
     return this.http.delete<any[]>(url);
   }
 
-  public addContact(contact: any): Observable<any[]> {
+  public addContact(contact: Contact): Observable<Contact> {
     const url = `${this.url}`;
-    return this.http.post<any>(url, contact);
+    return this.http.post<Contact>(url, contact);
   }
 
   public updateContact(id: string, contact: any) {
