@@ -53,19 +53,10 @@ public class ContactService : IContactService
 
     async public Task UpdateContact(Guid id, Contact contact)
     {
-      // var currentContact = await context.Contacts.FindAsync(id);
       contact.Id = id;
-      // currentContact.FirstName = contact.FirstName;
-      // currentContact.LastName = contact.LastName;
-      // currentContact.Company = contact.Company;
-      // currentContact.Addresses = contact.Addresses;
-      // currentContact.EmailAddresses = contact.EmailAddresses;
-      // currentContact.PhoneNumbers = contact.PhoneNumbers;
       context.Contacts.Update(contact);
 
       await context.SaveChangesAsync();
-
-      // await context.Database.CommitTransactionAsync();
       
     }
 
