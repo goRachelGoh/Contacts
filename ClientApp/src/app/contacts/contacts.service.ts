@@ -34,13 +34,13 @@ export class ContactsService implements Resolve<any[]> {
     return this.http.get<Contact[]>('/api/contacts');
   }
 
-  public getContactById(id: any): Observable<Contact> {
+  public getContactById(id: string | null): Observable<Contact> {
     return this.http.get<Contact>(`/api/contacts/${id}`);
   }
 
   public deleteContact(contact: Contact): Observable<any[]> {
     const url = `${this.url}/${contact.id}`;
-    return this.http.delete<any[]>(url);
+    return this.http.delete<Contact[]>(url);
   }
 
   public addContact(contact: Contact): Observable<Contact> {
@@ -48,15 +48,15 @@ export class ContactsService implements Resolve<any[]> {
     return this.http.post<Contact>(url, contact);
   }
 
-  public updateContact(id: string, contact: any) {
+  public updateContact(id: string, contact: Contact) {
     const url = `${this.url}/${id}`;
     return this.http.put(url, contact);
   }
 
   public findDuplicateContact(
-    contact: any
+    contact: Contact
   ): Observable<ValidationErrors | null> {
     const url = `${this.url}/duplicate`;
-    return this.http.post<any>(url, contact);
+    return this.http.post<Contact>(url, contact);
   }
 }
