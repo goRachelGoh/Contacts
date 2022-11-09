@@ -1,6 +1,7 @@
-import { Component, Output } from '@angular/core';
-import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
-import { EventEmitter } from '@angular/core';
+import { Component } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { BehaviorSubject, map, Observable } from 'rxjs';
+import { ContactDataService } from '../contact-data.service';
 
 @Component({
   selector: 'app-nav-menu',
@@ -8,21 +9,17 @@ import { EventEmitter } from '@angular/core';
   styleUrls: ['./nav-menu.component.css'],
 })
 export class NavMenuComponent {
-  isExpanded = false;
-  public faUserPlus = faUserPlus;
+  public searchFormControl: FormControl = new FormControl();
 
-  collapse() {
-    this.isExpanded = false;
+  constructor(private contactDataService: ContactDataService) {}
+
+  ngOnInit(): void {
+    this.search();
   }
 
-  toggle() {
-    this.isExpanded = !this.isExpanded;
-  }
-
-  enteredSearchValue: string = '';
-  @Output()
-  searchTextChanged: EventEmitter<string> = new EventEmitter<string>();
-  onSearchTextChanged() {
-    this.searchTextChanged.emit(this.enteredSearchValue);
+  public search() {
+    this.searchFormControl.valueChanges.subscribe((searchString) =>
+      this.contactDataService.filter(searchString)
+    );
   }
 }

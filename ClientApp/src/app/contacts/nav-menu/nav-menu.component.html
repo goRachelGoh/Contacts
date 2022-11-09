@@ -9,8 +9,7 @@
         id="directory"
         name="directory"
         placeholder="Search Directory..."
-        [(ngModel)]="enteredSearchValue"
-        (input)="onSearchTextChanged()"
+        [formControl]="searchFormControl"
       />
     </div>
   </nav>

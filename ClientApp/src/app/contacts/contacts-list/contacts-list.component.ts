@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+
 import {
   faPencil,
   faTrashCan,
@@ -10,7 +9,9 @@ import {
   faUserPlus,
 } from '@fortawesome/free-solid-svg-icons';
 import { BehaviorSubject, pairwise } from 'rxjs';
+import { ContactDataService } from '../contact-data.service';
 import { ContactsService } from '../contacts.service';
+import { Contact } from '../models/contact';
 enum SortDirection {
   Default,
   Ascending,
@@ -31,25 +32,30 @@ export class ContactsListComponent implements OnInit {
   public faUserPlus = faUserPlus;
   public showEdit = false;
   public showSave = true;
-  public contactsList: any[] = [];
   public sortedPropertyName = new BehaviorSubject<string>('');
   public sortDirection = new BehaviorSubject<SortDirection>(
     SortDirection.Default
   );
   public sortDirectionEnum = SortDirection;
+  public contactsList: Contact[] = [];
   public copyList: any[] = [];
   constructor(
-    private activatedRoute: ActivatedRoute,
+    public contactDataService: ContactDataService,
     private contactsService: ContactsService
   ) {}
 
   ngOnInit(): void {
-    this.contactsList = this.activatedRoute.snapshot.data.contacts;
+    this.contactsService.getContacts().subscribe((data) => {
+      this.contactsList = data;
+      console.log(this.contactsList);
+      this.contactDataService.next(this.contactsList);
+    });
+
     this.copyList = this.contactsList.slice();
-    console.log(this.contactsList);
+    // this.contactsList = this.activatedRoute.snapshot.data.contacts;
 
     this.sortedPropertyName.pipe(pairwise()).subscribe((propertyNames) => {
-      const [prev, current] = propertyNames; // Destructuring assignment, propertyName = array of values
+      const [prev, current] = propertyNames;
       if (prev !== current) {
         this.sortDirection.next(SortDirection.Default);
       }
@@ -83,7 +89,6 @@ export class ContactsListComponent implements OnInit {
   traverseObject(object: any, path: string): string {
     const pathArr = path.split('.');
     let finalValue = object;
-    // console.log(object[pathArr[0]][pathArr[1]][pathArr[2]]);
     for (let i = 0; i < pathArr.length; i++) {
       finalValue = finalValue[pathArr[i]];
     }
@@ -95,8 +100,8 @@ export class ContactsListComponent implements OnInit {
   }
 
   // Get the input value when onSearchTextChanged() triggers
-  searchText: string = '';
-  onSearchTextEntered(searchValue: string) {
-    this.searchText = searchValue;
-  }
+  // searchText: string = '';
+  // onSearchTextEntered(searchValue: string) {
+  //   this.searchText = searchValue;
+  // }
 }

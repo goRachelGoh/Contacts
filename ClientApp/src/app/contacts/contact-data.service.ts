@@ -1,13 +1,31 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import { Contact } from './models/contact';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ContactDataService {
-  private mostRecentContactListData: BehaviorSubject<Contact> =
-    new BehaviorSubject<Contact>([]);
-  public mostRecentContactList: Observable<Contact> =
+  // declaring empty behaviorsubject
+  private mostRecentContactListData: BehaviorSubject<Contact[]> =
+    new BehaviorSubject<Contact[]>([]);
+  // recording the most recent version of contactList as an observable
+  public mostRecentContactList: Observable<Contact[]> =
     this.mostRecentContactListData.asObservable();
+
+  public next(contactsList: Contact[]): void {
+    this.mostRecentContactListData.next(contactsList);
+  }
+
+  public filter(searchText: string) {
+    return this.mostRecentContactList
+      .pipe(
+        map((contacts) =>
+          contacts.filter((contact) =>
+            contact.firstName?.toLowerCase().includes(searchText.toLowerCase())
+          )
+        )
+      )
+      .subscribe((res) => console.log(res));
+  }
 }

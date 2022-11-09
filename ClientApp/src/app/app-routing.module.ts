@@ -17,7 +17,7 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
-    resolve: { contacts: ContactsService },
+    // resolve: { contacts: ContactsService },
   },
   { path: 'new', component: NewContactsComponent },
   { path: 'edit/:id', component: NewContactsComponent },

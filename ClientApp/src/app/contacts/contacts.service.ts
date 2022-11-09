@@ -18,7 +18,7 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root',
 })
-export class ContactsService implements Resolve<any[]> {
+export class ContactsService implements Resolve<Contact[]> {
   private url = 'http://localhost:4200/api/contacts';
 
   constructor(private http: HttpClient) {}

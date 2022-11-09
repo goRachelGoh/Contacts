@@ -6,6 +6,7 @@ import {
   faSave,
   faArrowLeft,
 } from '@fortawesome/free-solid-svg-icons';
+import { ContactDataService } from '../contact-data.service';
 
 import { ContactsService } from '../contacts.service';
 
@@ -24,13 +25,15 @@ export class ContactDetailsComponent implements OnInit {
   constructor(
     private activatedroute: ActivatedRoute,
     private router: Router,
-    private contactsService: ContactsService
+    private contactsService: ContactsService,
+    private contactDataService: ContactDataService
   ) {}
 
   ngOnInit(): void {
     const id = this.activatedroute.snapshot.paramMap.get('id');
-    this.contact = this.contactsService.getContactById(id).subscribe((data) => {
+    this.contactsService.getContactById(id).subscribe((data) => {
       this.contact = data;
+      console.log(this.contact);
     });
   }
 
@@ -46,5 +49,9 @@ export class ContactDetailsComponent implements OnInit {
       );
     alert('Deletion Successful! Going back to Main page');
     this.router.navigate(['/home']);
+  }
+
+  onClickEditor(id: string) {
+    this.router.navigate([`/edit/${id}`]);
   }
 }

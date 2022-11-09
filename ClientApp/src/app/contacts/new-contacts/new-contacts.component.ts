@@ -9,7 +9,7 @@ import {
 import { faArrowLeft, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { ContactsService } from '../contacts.service';
 import { Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Contact } from '../models/contact';
 import { Address } from '../models/address';
 import { Email } from '../models/email';
@@ -78,7 +78,7 @@ export class NewContactsComponent implements OnInit {
   public contactForm = new FormGroup({});
   public contact: any;
   editMode: boolean = false;
-  public id = this.activatedroute.snapshot.paramMap.get('id');
+  private id = this.activatedroute.snapshot.paramMap.get('id');
   constructor(
     private activatedroute: ActivatedRoute,
     private contactsService: ContactsService,
@@ -228,17 +228,17 @@ export class NewContactsComponent implements OnInit {
       ],
       company: [contact?.company ?? ''],
       addresses: this.formBuilder.array(
-        contact?.addresses.map((a) => this.buildAddressForm(a)) ?? [
+        contact?.addresses?.map((a) => this.buildAddressForm(a)) ?? [
           this.buildAddressForm(),
         ]
       ),
       emailAddresses: this.formBuilder.array(
-        contact?.emailAddresses.map((email) => this.buildEmailForm(email)) ?? [
+        contact?.emailAddresses?.map((email) => this.buildEmailForm(email)) ?? [
           this.buildEmailForm(),
         ]
       ),
       phoneNumbers: this.formBuilder.array(
-        contact?.phoneNumbers.map((p) => this.buildPhoneNumberForm(p)) ?? [
+        contact?.phoneNumbers?.map((p) => this.buildPhoneNumberForm(p)) ?? [
           this.buildPhoneNumberForm(),
         ]
       ),

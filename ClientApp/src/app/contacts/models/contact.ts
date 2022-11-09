@@ -3,11 +3,11 @@ import { Email } from './email';
 import { Phone } from './phone';
 
 export interface Contact {
-  id: string;
-  firstName: string;
-  lastName: string;
-  company: string;
+  id?: string;
+  firstName?: string;
+  lastName?: string;
+  company?: string;
   addresses: Address[];
-  emailAddresses: Email[];
-  phoneNumbers: Phone[];
+  emailAddresses?: Email[];
+  phoneNumbers?: Phone[];
 }

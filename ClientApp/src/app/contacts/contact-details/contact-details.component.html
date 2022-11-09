@@ -11,7 +11,7 @@
         <fa-icon
           [icon]="faPencil"
           class="fa-lg icon"
-          [routerLink]="['/edit', contact.id]"
+          (click)="onClickEditor(contact.id)"
         ></fa-icon>
       </button>
       <button class="p-2">
@@ -27,7 +27,7 @@
 <div class="container">
   <div class="subHeader">Picture goes here later</div>
   <div class="header">
-    {{ contact.firstName | uppercase }} {{ contact.lastName }}
+    {{ contact.firstName | uppercase }} {{ contact.lastName }} {{ contact.id }}
   </div>
   <div class="subHeader" *ngIf="contact.company === ''">N/A</div>
   <div class="subHeader">{{ contact.company }}</div>
