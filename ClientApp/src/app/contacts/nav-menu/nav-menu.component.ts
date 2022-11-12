@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { BehaviorSubject, map, Observable } from 'rxjs';
 import { ContactDataService } from '../contact-data.service';
+import { Contact } from '../models/contact';
 
 @Component({
   selector: 'app-nav-menu',
@@ -17,9 +17,11 @@ export class NavMenuComponent {
     this.search();
   }
 
-  public search() {
-    this.searchFormControl.valueChanges.subscribe((searchString) =>
-      this.contactDataService.filter(searchString)
-    );
+  public search(): Contact[] {
+    this.searchFormControl.valueChanges.subscribe((searchString) => {
+      const searchResult = this.contactDataService.filter(searchString);
+      // this.contactDataService.next(searchResult);
+    });
+    return [];
   }
 }

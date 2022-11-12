@@ -20,11 +20,11 @@ export class ContactDataService {
   public filter(searchText: string) {
     return this.mostRecentContactList
       .pipe(
-        map((contacts) =>
-          contacts.filter((contact) =>
+        map((contacts) => {
+          return contacts.filter((contact) =>
             contact.firstName?.toLowerCase().includes(searchText.toLowerCase())
-          )
-        )
+          );
+        })
       )
       .subscribe((res) => console.log(res));
   }
