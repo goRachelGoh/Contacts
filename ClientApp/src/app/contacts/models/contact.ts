@@ -10,4 +10,5 @@ export interface Contact {
   addresses: Address[];
   emailAddresses?: Email[];
   phoneNumbers?: Phone[];
+  fullTextString?: string;
 }

@@ -17,11 +17,9 @@ export class NavMenuComponent {
     this.search();
   }
 
-  public search(): Contact[] {
+  public search(): void {
     this.searchFormControl.valueChanges.subscribe((searchString) => {
-      const searchResult = this.contactDataService.filter(searchString);
-      // this.contactDataService.next(searchResult);
+      this.contactDataService.filter(searchString);
     });
-    return [];
   }
 }

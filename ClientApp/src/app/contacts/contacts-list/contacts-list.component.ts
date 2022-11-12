@@ -48,7 +48,7 @@ export class ContactsListComponent implements OnInit {
     this.contactsService.getContacts().subscribe((data) => {
       this.contactsList = data;
       console.log(this.contactsList);
-      this.contactDataService.next(this.contactsList);
+      this.contactDataService.setInitialContactList(this.contactsList);
     });
 
     this.copyList = this.contactsList.slice();
