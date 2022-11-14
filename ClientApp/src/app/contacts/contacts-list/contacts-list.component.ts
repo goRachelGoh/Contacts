@@ -12,11 +12,7 @@ import { BehaviorSubject, pairwise } from 'rxjs';
 import { ContactDataService } from '../contact-data.service';
 import { ContactsService } from '../contacts.service';
 import { Contact } from '../models/contact';
-enum SortDirection {
-  Default,
-  Ascending,
-  Descending,
-}
+import { SortDirection } from '../enums/sort-direction';
 
 @Component({
   selector: 'app-contacts-list',
@@ -46,38 +42,27 @@ export class ContactsListComponent implements OnInit {
 
   ngOnInit(): void {
     this.contactsService.getContacts().subscribe((data) => {
-      this.contactsList = data;
-      console.log(this.contactsList);
-      this.contactDataService.setInitialContactList(this.contactsList);
+      console.log(data);
+      this.contactDataService.setInitialContactList(data);
     });
-
-    this.copyList = this.contactsList.slice();
-    // this.contactsList = this.activatedRoute.snapshot.data.contacts;
 
     this.sortedPropertyName.pipe(pairwise()).subscribe((propertyNames) => {
       const [prev, current] = propertyNames;
       if (prev !== current) {
+        this.contactDataService.sort(current, this.sortDirection.getValue());
         this.sortDirection.next(SortDirection.Default);
       }
       switch (this.sortDirection.getValue()) {
         case SortDirection.Default:
-          this.contactsList.sort((a, b) =>
-            this.traverseObject(a, current).localeCompare(
-              this.traverseObject(b, current)
-            )
-          );
+          this.contactDataService.sort(current, this.sortDirection.getValue());
           this.sortDirection.next(SortDirection.Ascending);
           break;
         case SortDirection.Ascending:
-          this.contactsList.sort((a, b) =>
-            this.traverseObject(b, current).localeCompare(
-              this.traverseObject(a, current)
-            )
-          );
+          this.contactDataService.sort(current, this.sortDirection.getValue());
           this.sortDirection.next(SortDirection.Descending);
           break;
         case SortDirection.Descending:
-          this.contactsList = Array.from(this.copyList);
+          this.contactDataService.sort(current, this.sortDirection.getValue());
           this.sortDirection.next(SortDirection.Default);
           break;
         default:
@@ -86,22 +71,7 @@ export class ContactsListComponent implements OnInit {
     });
   }
 
-  traverseObject(object: any, path: string): string {
-    const pathArr = path.split('.');
-    let finalValue = object;
-    for (let i = 0; i < pathArr.length; i++) {
-      finalValue = finalValue[pathArr[i]];
-    }
-    return finalValue || '';
-  }
-
   onclick(propertyName: string) {
     this.sortedPropertyName.next(propertyName);
   }
-
-  // Get the input value when onSearchTextChanged() triggers
-  // searchText: string = '';
-  // onSearchTextEntered(searchValue: string) {
-  //   this.searchText = searchValue;
-  // }
 }
