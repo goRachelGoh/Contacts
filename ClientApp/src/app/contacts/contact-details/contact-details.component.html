@@ -26,28 +26,28 @@
 </div>
 <div class="container">
   <div class="subHeader">Picture goes here later</div>
-  <div class="header">
-    {{ contact.firstName | uppercase }} {{ contact.lastName }} {{ contact.id }}
-  </div>
-  <div class="subHeader" *ngIf="contact.company === ''">N/A</div>
-  <div class="subHeader">{{ contact.company }}</div>
+  <ng-container *ngFor="let contact of contactsList">
+    <div class="header">{{ contact.firstName }} {{ contact.lastName }}</div>
+    <div class="subHeader" *ngIf="contact.company === ''">N/A</div>
+    <div class="subHeader">{{ contact.company }}</div>
+  </ng-container>
   <div class="flex flex-row justify-around">
     <div class="flex flex-col item-column">
       <div class="column-header">ADDRESS</div>
-      <div *ngFor="let subItem of contact.addresses" class="per-item">
+      <ng-container *ngFor="let subItem of contact.addresses" class="per-item">
         <div>{{ subItem.streetAddress }}</div>
         <div>{{ subItem.city }} {{ subItem.state }} {{ subItem.zipCode }}</div>
-      </div>
+      </ng-container>
     </div>
-    <div class="flex flex-col item-column">
-      <div class="column-header">E-MAIL</div>
-      <div *ngFor="let subItem of contact.emailAddresses" class="per-item">
-        <div>{{ subItem.emailAddress }}</div>
-      </div>
-      <div class="column-header">MOBILE</div>
-      <div *ngFor="let subItem of contact.phoneNumbers" class="per-item">
-        <div>{{ subItem.phoneNumber }}</div>
-      </div>
+  </div>
+  <div class="flex flex-col item-column">
+    <div class="column-header">E-MAIL</div>
+    <div *ngFor="let subItem of contact.emailAddresses" class="per-item">
+      <div>{{ subItem.emailAddress }}</div>
+    </div>
+    <div class="column-header">MOBILE</div>
+    <div *ngFor="let subItem of contact.phoneNumbers" class="per-item">
+      <div>{{ subItem.phoneNumber }}</div>
     </div>
   </div>
 </div>

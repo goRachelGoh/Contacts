@@ -7,10 +7,9 @@ import { SortDirection } from './enums/sort-direction';
   providedIn: 'root',
 })
 export class ContactDataService {
-  // declaring empty behaviorsubject
   private mostRecentContactListData: BehaviorSubject<Contact[]> =
     new BehaviorSubject<Contact[]>([]);
-  // recording the most recent version of contactList as an observable
+
   public mostRecentContactList: Observable<Contact[]> =
     this.mostRecentContactListData.asObservable();
   private initialContactList: Contact[] = [];
@@ -24,10 +23,9 @@ export class ContactDataService {
     });
   }
 
-  public setInitialContactList(contactsList: Contact[]) {
-    this.initialContactList = contactsList;
-    console.log(this.initialContactList);
-    this.next(contactsList);
+  public setInitialContactList(data: Contact[]) {
+    this.initialContactList = data;
+    this.next(data);
   }
 
   // assign a value to fullTextString

@@ -96,9 +96,9 @@ export class NewContactsComponent implements OnInit {
         });
     } else {
       this.initForm();
-      this.contactForm.valueChanges.subscribe(() => {
-        console.log(this.contactForm);
-      });
+      // this.contactForm.valueChanges.subscribe(() => {
+      //   console.log(this.contactForm);
+      // });
     }
   }
 
