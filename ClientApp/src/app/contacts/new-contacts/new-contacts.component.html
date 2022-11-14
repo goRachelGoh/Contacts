@@ -154,7 +154,8 @@
       <div
         *ngFor="
           let group of contactForm.get('emailAddresses') | asFormGroupArray;
-          first as isFirst
+          first as isFirst;
+          let i = index
         "
         class="py-1"
       >
@@ -172,12 +173,12 @@
           "
           class="error-red"
         >
-          Enter a valid email address with @domainname
+          Enter a valid email address with @domain name
         </small>
         <fa-icon
           [icon]="faTrashCan"
           class="trash-icon pl-3"
-          (click)="deleteEmail(addEmailAddress)"
+          (click)="deleteEmail(i)"
           *ngIf="!isFirst"
         ></fa-icon>
       </div>
@@ -188,7 +189,8 @@
       <div
         *ngFor="
           let group of contactForm.get('phoneNumbers') | asFormGroupArray;
-          first as isFirst
+          first as isFirst;
+          let i = index
         "
         class="py-1"
       >
@@ -201,7 +203,7 @@
         <fa-icon
           [icon]="faTrashCan"
           class="trash-icon pl-3"
-          (click)="deletePhoneNumber(addPhoneNumber)"
+          (click)="deletePhoneNumber(i)"
           *ngIf="!isFirst"
         ></fa-icon>
         <!-- Error if phoneNumber has non-numerical value  -->

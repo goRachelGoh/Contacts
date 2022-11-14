@@ -69,24 +69,6 @@ public class ContactRepository : IContactRepository
           }
         };
 
-        // var duplicatePhone = await this.context.Contacts
-        //   .Concat(duplicateNameQueryable)
-        //   .Include(dbContact => dbContact.PhoneNumbers)
-        //   .Select(
-        //     dbContact => dbContact.PhoneNumbers.DefaultIfEmpty().Intersect(contact.PhoneNumbers.DefaultIfEmpty())
-        //   )
-        //   .Select(contactIntersection => contactIntersection.Count() >= 1)
-        //   .FirstAsync();
-
-        // var duplicateEmail = await this.context.Contacts
-        //   .Concat(duplicateNameQueryable)
-        //   .Include(dbContact => dbContact.EmailAddresses)
-        //   .Select(
-        //     dbContact => dbContact.EmailAddresses.DefaultIfEmpty().Intersect(contact.EmailAddresses.DefaultIfEmpty())
-        //   )
-        //   .Select(contactIntersection => contactIntersection.Count() >= 1)
-        //   .FirstAsync();
-
         return hasDuplicateName && (hasDuplicatePhoneNumber || hasDuplicateEmail);
   }
 

@@ -2,6 +2,7 @@
 using Project_2_5.Repositories;
 using Project_2_5.Services;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace Project_2_5.Controllers;
 
@@ -50,7 +51,7 @@ public class ContactController : ControllerBase
     [HttpPost]   
     [Route("")]
     async public Task<ActionResult<Contact>> Post([FromBody] Contact contact)
-    {
+    {        
         contact.Id = Guid.NewGuid();
         if(contact == null)
         {

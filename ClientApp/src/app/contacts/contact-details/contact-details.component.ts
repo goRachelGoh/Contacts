@@ -33,7 +33,7 @@ export class ContactDetailsComponent implements OnInit {
     const id = this.activatedroute.snapshot.paramMap.get('id');
     this.contactsService.getContactById(id).subscribe((data) => {
       this.contact = data;
-      console.log(this.contact);
+      console.log(data);
     });
   }
 

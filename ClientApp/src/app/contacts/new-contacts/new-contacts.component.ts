@@ -78,7 +78,7 @@ export class NewContactsComponent implements OnInit {
   public contactForm = new FormGroup({});
   public contact: any;
   editMode: boolean = false;
-  private id = this.activatedroute.snapshot.paramMap.get('id');
+  private id: any;
   constructor(
     private activatedroute: ActivatedRoute,
     private contactsService: ContactsService,
@@ -86,16 +86,18 @@ export class NewContactsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.id = this.activatedroute.snapshot.paramMap.get('id') || '';
     if (this.id) {
       this.editMode = true;
       this.contact = this.contactsService
         .getContactById(this.id)
         .subscribe((data) => {
           this.initForm(data);
-          console.log(this.contactForm.value);
+          console.log(data); // this data has IDs
         });
     } else {
       this.initForm();
+      console.log(this.contactForm.value);
       // this.contactForm.valueChanges.subscribe(() => {
       //   console.log(this.contactForm);
       // });
@@ -134,6 +136,7 @@ export class NewContactsComponent implements OnInit {
             console.log(response);
           }
         });
+      console.log(this.contactForm.value);
     }
   }
 
@@ -162,6 +165,7 @@ export class NewContactsComponent implements OnInit {
   //phonenumbers cannot be duplicate
   private buildPhoneNumberForm(phone?: Phone): FormGroup {
     return this.formBuilder.group({
+      id: [phone?.id ?? null],
       phoneNumber: [
         phone?.phoneNumber ?? '',
         [
@@ -176,6 +180,7 @@ export class NewContactsComponent implements OnInit {
   public addEmailAddress() {
     const emailAddresses = this.contactForm.get('emailAddresses') as FormArray;
     emailAddresses.push(this.buildEmailForm());
+    console.log(emailAddresses.value);
   }
 
   public addPhoneNumber() {
@@ -191,6 +196,7 @@ export class NewContactsComponent implements OnInit {
   public deleteEmail(index: any) {
     const emailAddresses = this.contactForm.get('emailAddresses') as FormArray;
     emailAddresses.removeAt(index);
+    console.log(emailAddresses.value);
   }
 
   public deletePhoneNumber(index: any) {

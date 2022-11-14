@@ -43,6 +43,7 @@ export class ContactsListComponent implements OnInit {
   ngOnInit(): void {
     this.contactsService.getContacts().subscribe((data) => {
       this.contactDataService.setInitialContactList(data);
+      console.log(data);
     });
 
     this.sortedPropertyName.pipe(pairwise()).subscribe((propertyNames) => {
