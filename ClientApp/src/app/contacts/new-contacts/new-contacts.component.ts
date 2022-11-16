@@ -141,7 +141,7 @@ export class NewContactsComponent implements OnInit {
   }
 
   private buildAddressForm(address?: Address): FormGroup {
-    return this.formBuilder.group({
+    let editForm = this.formBuilder.group({
       streetAddress: [address?.streetAddress ?? '', Validators.required],
       city: [address?.city ?? '', Validators.required],
       state: [address?.state ?? '', Validators.required],
@@ -150,22 +150,31 @@ export class NewContactsComponent implements OnInit {
         [Validators.maxLength(5), Validators.pattern('^[0-9]+')],
       ], //5 number
     });
+
+    if (this.editMode) {
+      editForm.addControl('id', new FormControl(address?.id));
+    }
+    return editForm;
   }
 
   //emails cannot be duplicate
   private buildEmailForm(email?: Email): FormGroup {
-    return this.formBuilder.group({
+    let editForm = this.formBuilder.group({
       emailAddress: [
         email?.emailAddress ?? '',
         [Validators.required, Validators.email],
       ],
     });
+
+    if (this.editMode) {
+      editForm.addControl('id', new FormControl(email?.id));
+    }
+    return editForm;
   }
 
   //phonenumbers cannot be duplicate
   private buildPhoneNumberForm(phone?: Phone): FormGroup {
-    return this.formBuilder.group({
-      id: [phone?.id ?? null],
+    let editForm = this.formBuilder.group({
       phoneNumber: [
         phone?.phoneNumber ?? '',
         [
@@ -175,6 +184,11 @@ export class NewContactsComponent implements OnInit {
         ],
       ],
     });
+
+    if (this.editMode) {
+      editForm.addControl('id', new FormControl(phone?.id));
+    }
+    return editForm;
   }
 
   public addEmailAddress() {
