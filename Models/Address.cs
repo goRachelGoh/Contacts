@@ -1,4 +1,4 @@
-namespace Project_2_5;
+namespace Contacts;
 using System.Text.Json.Serialization;
 public class Address
 {

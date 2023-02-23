@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Project_2_5;
+using Contacts;
 
 #nullable disable
 
-namespace Project_2_5.Migrations
+namespace Contacts.Migrations
 {
     [DbContext(typeof(ContactsContext))]
     [Migration("20220809222649_UpdateForeignKeys")]
@@ -21,7 +21,7 @@ namespace Project_2_5.Migrations
                 .HasAnnotation("ProductVersion", "6.0.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("Project_2_5.Address", b =>
+            modelBuilder.Entity("Contacts.Address", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -49,7 +49,7 @@ namespace Project_2_5.Migrations
                     b.ToTable("Addresses");
                 });
 
-            modelBuilder.Entity("Project_2_5.Contact", b =>
+            modelBuilder.Entity("Contacts.Contact", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -66,7 +66,7 @@ namespace Project_2_5.Migrations
                     b.ToTable("Contacts");
                 });
 
-            modelBuilder.Entity("Project_2_5.Email", b =>
+            modelBuilder.Entity("Contacts.Email", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -85,7 +85,7 @@ namespace Project_2_5.Migrations
                     b.ToTable("EmailAddresses");
                 });
 
-            modelBuilder.Entity("Project_2_5.Phone", b =>
+            modelBuilder.Entity("Contacts.Phone", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -104,28 +104,28 @@ namespace Project_2_5.Migrations
                     b.ToTable("PhoneNumbers");
                 });
 
-            modelBuilder.Entity("Project_2_5.Address", b =>
+            modelBuilder.Entity("Contacts.Address", b =>
                 {
-                    b.HasOne("Project_2_5.Contact", null)
+                    b.HasOne("Contacts.Contact", null)
                         .WithMany("Addresses")
                         .HasForeignKey("ContactId");
                 });
 
-            modelBuilder.Entity("Project_2_5.Email", b =>
+            modelBuilder.Entity("Contacts.Email", b =>
                 {
-                    b.HasOne("Project_2_5.Contact", null)
+                    b.HasOne("Contacts.Contact", null)
                         .WithMany("EmailAddresses")
                         .HasForeignKey("ContactId");
                 });
 
-            modelBuilder.Entity("Project_2_5.Phone", b =>
+            modelBuilder.Entity("Contacts.Phone", b =>
                 {
-                    b.HasOne("Project_2_5.Contact", null)
+                    b.HasOne("Contacts.Contact", null)
                         .WithMany("PhoneNumbers")
                         .HasForeignKey("ContactId");
                 });
 
-            modelBuilder.Entity("Project_2_5.Contact", b =>
+            modelBuilder.Entity("Contacts.Contact", b =>
                 {
                     b.Navigation("Addresses");
 

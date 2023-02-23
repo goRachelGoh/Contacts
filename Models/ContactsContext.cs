@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace Project_2_5
+namespace Contacts
 {
     public class ContactsContext : DbContext
     {
@@ -15,10 +15,10 @@ namespace Project_2_5
             : base(options)
         {
         }
-        public DbSet<Contact> Contacts { get; set; } 
-        public DbSet<Address> Addresses { get; set; } 
-        public DbSet<Phone> PhoneNumbers { get; set; } 
-        public DbSet<Email> EmailAddresses { get; set; } 
+        public DbSet<Contact> Contacts { get; set; }
+        public DbSet<Address> Addresses { get; set; }
+        public DbSet<Phone> PhoneNumbers { get; set; }
+        public DbSet<Email> EmailAddresses { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder
@@ -36,6 +36,6 @@ namespace Project_2_5
                 .HasOne(e => e.Contact)
                 .WithMany(e => e.EmailAddresses)
                 .OnDelete(DeleteBehavior.Restrict);
-        }       
+        }
     }
 }

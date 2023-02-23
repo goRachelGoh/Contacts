@@ -6,7 +6,6 @@ import {
   faSave,
   faArrowUp,
   faArrowDown,
-  faUserPlus,
 } from '@fortawesome/free-solid-svg-icons';
 import { BehaviorSubject, pairwise } from 'rxjs';
 import { ContactDataService } from '../contact-data.service';
@@ -25,7 +24,6 @@ export class ContactsListComponent implements OnInit {
   public faSave = faSave;
   public faArrowUp = faArrowUp;
   public faArrowDown = faArrowDown;
-  public faUserPlus = faUserPlus;
   public showEdit = false;
   public showSave = true;
   public sortedPropertyName = new BehaviorSubject<string>('');

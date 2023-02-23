@@ -1,89 +1,66 @@
-<app-nav-menu></app-nav-menu>
-<div class="container add-User">
-  <div class="flex flex-row">
-    <div class="header">DIRECTORY</div>
-    <button>
-      <a [routerLink]="['/new']"
-        ><fa-icon [icon]="faUserPlus" class="fa-lg icon"></fa-icon
-      ></a>
-    </button>
-  </div>
-  <table class="m-auto">
-    <thead>
-      <tr class="border-b-2 border-teal-800">
-        <th class="p-2 text-center" (click)="onclick('firstName')">
-          First Name
-          <ng-container
-            [ngTemplateOutlet]="arrows"
-            [ngTemplateOutletContext]="{ propertyName: 'firstName' }"
-          ></ng-container>
-        </th>
-        <th class="p-2 text-center" (click)="onclick('lastName')">
-          Last Name
-          <ng-container
-            [ngTemplateOutlet]="arrows"
-            [ngTemplateOutletContext]="{ propertyName: 'lastName' }"
-          ></ng-container>
-        </th>
-        <th class="p-2 text-center" (click)="onclick('company')">
-          Company
-          <ng-container
-            [ngTemplateOutlet]="arrows"
-            [ngTemplateOutletContext]="{ propertyName: 'company' }"
-          ></ng-container>
-        </th>
-        <th class="p-2 text-center" (click)="onclick('addresses.0.city')">
-          City
-          <ng-container
-            [ngTemplateOutlet]="arrows"
-            [ngTemplateOutletContext]="{ propertyName: 'addresses.0.city' }"
-          ></ng-container>
-        </th>
-        <th class="p-2 text-center" (click)="onclick('addresses.0.state')">
-          <ng-container
-            [ngTemplateOutlet]="arrows"
-            [ngTemplateOutletContext]="{ propertyName: 'addresses.0.state' }"
-          ></ng-container
-          >State
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr
-        *ngFor="
-          let contact of contactDataService.mostRecentContactList | async;
-          index as i
-        "
-        class="border-b-2 border-teal-800"
+<app-search-bar></app-search-bar>
+<div>
+  <ul class="flex flex-col">
+    <a
+      *ngFor="
+        let contact of contactDataService.mostRecentContactList | async;
+        index as i
+      "
+      class="group odd:bg-white even:bg-slate-50"
+      [routerLink]="['/detail', contact.id]"
+    >
+      <li
+        class="flex flex-row flex-nowrap group-hover:bg-sky-200 group-active:bg-sky-200 group-focus:bg-sky-400"
       >
-        <!-- <ng-container
-          *ngIf="
-            searchText === '' ||
-            contact.firstName.toLowerCase().includes(searchText.toLowerCase())
-          "
-        > -->
-        <td class="p-2 text-center">{{ contact.firstName | slice: 0:24 }}</td>
-        <td class="p-2 text-center">{{ contact.lastName | slice: 0:24 }}</td>
-        <td class="p-2 text-center">{{ contact.company | slice: 0:24 }}</td>
-        <td class="p-2 text-center">
-          {{ contact.addresses[0].city | slice: 0:45 }}
-        </td>
-        <td class="p-2 text-center">
-          {{ contact.addresses[0].state | slice: 0:24 }}
-        </td>
-
-        <td>
-          <button
-            class="bg-teal-500 hover:bg-teal-700 text-white py-2 px-3 rounded-full"
+        <img
+          style="background-color: blue; width: 50px; height: 50px"
+          class="m-3 rounded-full"
+        />
+        <div class="flex flex-col mt-3 items-start">
+          <h5
+            class="font-normal text-slate-700 group-hover:text-slate-900 group-hover:font-semibold"
           >
-            <a [routerLink]="['/details', contact.id]">Detail</a>
-          </button>
-        </td>
-        <!-- </ng-container> -->
-      </tr>
-    </tbody>
-  </table>
+            {{ contact.firstName | slice : 0 : 24 }}
+            {{ contact.lastName | slice : 0 : 24 }}
+          </h5>
+          <p
+            class="font-light text-sm italic text-slate-500 group-hover:text-slate-900 group-hover:font-medium"
+          >
+            {{ contact.company | slice : 0 : 24 }}
+          </p>
+        </div>
+      </li>
+    </a>
+  </ul>
 </div>
+<!-- <table class="table-fixed">
+  <thead>
+    <tr class="border-b-2 border-slate-200">
+      <th class="p-2 text-center" (click)="onclick('firstName')">
+        First Name
+        <ng-container
+          [ngTemplateOutlet]="arrows"
+          [ngTemplateOutletContext]="{ propertyName: 'firstName' }"
+        ></ng-container>
+      </th>
+      <th class="p-2 text-center" (click)="onclick('lastName')">
+        Last Name
+        <ng-container
+          [ngTemplateOutlet]="arrows"
+          [ngTemplateOutletContext]="{ propertyName: 'lastName' }"
+        ></ng-container>
+      </th>
+      <th class="p-2 text-center" (click)="onclick('company')">
+        Company
+        <ng-container
+          [ngTemplateOutlet]="arrows"
+          [ngTemplateOutletContext]="{ propertyName: 'company' }"
+        ></ng-container>
+      </th>
+    </tr>
+  </thead>
+
+</table> -->
 
 <!-- ng-template stays outside of body  -->
 <ng-template #arrows let-propertyName="propertyName">

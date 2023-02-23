@@ -1,5 +1,5 @@
 {
-  "name": "project_2_5",
+  "name": "Contacts",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -8,7 +8,7 @@
     "start:windows": "ng serve --port 44440 --ssl --ssl-cert %APPDATA%\\ASP.NET\\https\\%npm_package_name%.pem --ssl-key %APPDATA%\\ASP.NET\\https\\%npm_package_name%.key",
     "start:default": "ng serve --port 44440 --ssl --ssl-cert $HOME/.aspnet/https/${npm_package_name}.pem --ssl-key $HOME/.aspnet/https/${npm_package_name}.key",
     "build": "ng build",
-    "build:ssr": "ng run Project_2_5:server:dev",
+    "build:ssr": "ng run Contacts:server:dev",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

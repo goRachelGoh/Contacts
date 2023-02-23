@@ -1,0 +1,16 @@
+<nav class="flex flex-row p-5">
+  <div class="pt-5 w-full">
+    <input
+      class="rounded-lg border-2 border-slate-200 p-2 w-full"
+      id="directory"
+      name="directory"
+      placeholder="Search Directory..."
+      [formControl]="searchFormControl"
+    />
+  </div>
+
+  <button class="pt-5 pl-5">
+    <fa-icon [icon]="faFilter" class="fa-lg icon"></fa-icon>
+  </button>
+  <!-- Dropdown menu -->
+</nav>

@@ -1,15 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  NgForm,
-  FormControl,
-  FormGroup,
-  FormBuilder,
-  FormArray,
-} from '@angular/forms';
-import { faArrowLeft, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { FormControl, FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { ContactsService } from '../contacts.service';
 import { Validators } from '@angular/forms';
-import { ActivatedRoute, Route, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Contact } from '../models/contact';
 import { Address } from '../models/address';
 import { Email } from '../models/email';
@@ -74,10 +68,9 @@ export class NewContactsComponent implements OnInit {
     'Wyoming',
   ];
   public faTrashCan = faTrashCan;
-  public faArrowLeft = faArrowLeft;
   public contactForm = new FormGroup({});
   public contact: any;
-  editMode: boolean = false;
+  public editMode = false;
   private id: any;
   constructor(
     private activatedroute: ActivatedRoute,
@@ -97,10 +90,6 @@ export class NewContactsComponent implements OnInit {
         });
     } else {
       this.initForm();
-      console.log(this.contactForm.value);
-      // this.contactForm.valueChanges.subscribe(() => {
-      //   console.log(this.contactForm);
-      // });
     }
   }
 

@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace Project_2_5.Migrations
+namespace Contacts.Migrations
 {
     public partial class revertTest : Migration
     {
