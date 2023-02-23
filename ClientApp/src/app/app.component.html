@@ -1,5 +1,7 @@
-<body>
-  <div class="container m-auto">
+<div class="flex flex-row flex-wrap">
+  <app-side-bar class="w-12"></app-side-bar>
+  <app-contacts-list class="min-w-max w-96"></app-contacts-list>
+  <div class="min-w-[108] w-1/2 p-10">
     <router-outlet></router-outlet>
   </div>
-</body>
+</div>

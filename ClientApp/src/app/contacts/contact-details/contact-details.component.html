@@ -1,11 +1,5 @@
-<div class="container">
+<div class="p-5">
   <div class="flex flex-row justify-between">
-    <button class="p-2 text-center">
-      <a [routerLink]="['/home']"
-        ><fa-icon [icon]="faArrowLeft" class="fa-lg icon"></fa-icon
-      ></a>
-    </button>
-
     <div class="flex flex-row">
       <button class="p-2">
         <fa-icon
@@ -23,10 +17,9 @@
       </button>
     </div>
   </div>
-</div>
-<div class="container">
+
   <div class="subHeader">Picture goes here later</div>
-  <div class="header">{{ contact?.firstName }} {{ contact?.lastName }}</div>
+  <h2 class="header">{{ contact?.firstName }} {{ contact?.lastName }}</h2>
   <div class="subHeader" *ngIf="contact?.company === ''">N/A</div>
   <div class="subHeader">{{ contact?.company }}</div>
   <div class="flex flex-row justify-around">

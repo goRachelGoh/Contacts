@@ -8,14 +8,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { PipesModule } from '../pipes/pipes.module';
 import { ContactDetailsComponent } from './contact-details/contact-details.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
+import { SearchBarComponent } from './contacts-list/search-bar/search-bar.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     ContactsListComponent,
     NewContactsComponent,
     ContactDetailsComponent,
-    NavMenuComponent,
+    SearchBarComponent,
+    HomeComponent,
   ],
   imports: [
     CommonModule,
@@ -25,11 +27,7 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
     ReactiveFormsModule,
     PipesModule,
   ],
-  exports: [
-    ContactsListComponent,
-    NewContactsComponent,
-    ContactDetailsComponent,
-    NavMenuComponent,
-  ],
+
+  exports: [HomeComponent, ContactsListComponent, SearchBarComponent],
 })
 export class ContactsModule {}

@@ -1,18 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Project_2_5.Repositories;
-using Project_2_5.Services;
+using Contacts.Repositories;
+using Contacts.Services;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
-namespace Project_2_5.Controllers;
+namespace Contacts.Controllers;
 
 [ApiController]
 [Route("api/contacts")]
 public class ContactController : ControllerBase
 {
     private readonly ILogger<ContactController> _logger;
-    private readonly IContactRepository contactRepository; 
-    private readonly IContactService contactService; 
+    private readonly IContactRepository contactRepository;
+    private readonly IContactService contactService;
 
     public ContactController(ILogger<ContactController> logger, IContactRepository contactRepository, IContactService contactService)
     {
@@ -21,26 +21,26 @@ public class ContactController : ControllerBase
         this.contactService = contactService;
     }
 
-    [HttpGet]   
+    [HttpGet]
     [Route("")]
     async public Task<IList<Contact>> Get()
     {
         return await this.contactRepository.GetContacts();
     }
 
-    [HttpGet]   
+    [HttpGet]
     [Route("{id:Guid}")]
     async public Task<ActionResult<Contact>> Get(Guid id)
     {
         return await this.contactRepository.GetContactbyID(id);
     }
 
-    [HttpDelete]   
+    [HttpDelete]
     [Route("{id:Guid}")]
     async public Task<ActionResult<Contact>> Delete(Guid id)
     {
         var contact = await contactRepository.GetContactbyID(id);
-        if(contact == null)
+        if (contact == null)
         {
             return NotFound();
         }
@@ -48,12 +48,12 @@ public class ContactController : ControllerBase
         return Ok();
     }
 
-    [HttpPost]   
+    [HttpPost]
     [Route("")]
     async public Task<ActionResult<Contact>> Post([FromBody] Contact contact)
-    {        
+    {
         contact.Id = Guid.NewGuid();
-        if(contact == null)
+        if (contact == null)
         {
             return BadRequest();
         }
@@ -61,7 +61,7 @@ public class ContactController : ControllerBase
         return Ok();
     }
 
-    [HttpPut]   
+    [HttpPut]
     [Route("{id:Guid}")]
     async public Task<ActionResult<Contact>> Put(Guid id, [FromBody] Contact contact)
     {
@@ -70,7 +70,8 @@ public class ContactController : ControllerBase
         {
             return BadRequest("ID is not matching");
         }
-        if (contactToUpdate == null) {
+        if (contactToUpdate == null)
+        {
             return BadRequest("Contact Not Found");
         }
 
@@ -78,15 +79,15 @@ public class ContactController : ControllerBase
         return Ok();
     }
 
-    
-    [HttpPost]   
+
+    [HttpPost]
     [Route("duplicate")]
     async public Task<ActionResult<dynamic>> DuplicateCheck([FromBody] Contact contact)
     {
         var result = await this.contactRepository.Duplicate(contact);
         if (result)
         {
-           return new { isDuplicatedContact = true };
+            return new { isDuplicatedContact = true };
         }
         return null;
     }

@@ -2,13 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.container {
-  width: 75%;
-  padding: 20px;
-  margin: 0 auto;
-  font-weight: bold;
-}
-
 .header {
   display: block;
   font-size: 30px;

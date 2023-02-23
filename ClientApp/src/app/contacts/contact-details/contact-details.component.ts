@@ -1,13 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {
-  faPencil,
-  faTrashCan,
-  faSave,
-  faArrowLeft,
-} from '@fortawesome/free-solid-svg-icons';
+import { faPencil, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { ContactDataService } from '../contact-data.service';
-
 import { ContactsService } from '../contacts.service';
 
 @Component({
@@ -18,22 +12,22 @@ import { ContactsService } from '../contacts.service';
 export class ContactDetailsComponent implements OnInit {
   public faPencil = faPencil;
   public faTrashCan = faTrashCan;
-  public faArrowLeft = faArrowLeft;
-  public faSave = faSave;
   public contactsList: any[] = [];
   public contact: any;
+
   constructor(
-    private activatedroute: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     private router: Router,
-    private contactsService: ContactsService,
-    private contactDataService: ContactDataService
+    private contactsService: ContactsService
   ) {}
 
   ngOnInit(): void {
-    const id = this.activatedroute.snapshot.paramMap.get('id');
-    this.contactsService.getContactById(id).subscribe((data) => {
-      this.contact = data;
-      console.log(data);
+    this.activatedRoute.paramMap.subscribe((params) => {
+      const id = params.get('id');
+      this.contactsService.getContactById(id).subscribe((data) => {
+        this.contact = data;
+        console.log(data);
+      });
     });
   }
 

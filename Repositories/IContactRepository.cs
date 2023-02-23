@@ -1,9 +1,9 @@
-namespace Project_2_5.Repositories;
+namespace Contacts.Repositories;
 
-public interface IContactRepository 
+public interface IContactRepository
 {
     public Task<IList<Contact>> GetContacts();
     public Task<Contact> GetContactbyID(Guid id);
     public Task<bool> Duplicate(Contact contact);
-    
+
 }

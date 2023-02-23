@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Project_2_5.Migrations
+namespace Contacts.Migrations
 {
     public partial class UpdateForeignKeys : Migration
     {

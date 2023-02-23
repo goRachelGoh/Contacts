@@ -1,4 +1,4 @@
-namespace Project_2_5;
+namespace Contacts;
 
 public class Contact
 {

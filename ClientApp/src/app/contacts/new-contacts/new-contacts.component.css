@@ -2,35 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-input {
-  color: #000000;
-  width: 100%;
-  padding: 8px 10px;
-  margin: 1px 0;
-  box-sizing: border-box;
-  border: 2px solid #115e59;
-  border-radius: 25px;
+input:focus {
+  outline: none;
 }
-
-select {
-  color: #000000;
-  width: 100%;
-  padding: 8px 10px;
-  margin: 1px 0;
-  box-sizing: border-box;
-  border: 2px solid #115e59;
-  border-radius: 25px;
-}
-
 .error-red {
   color: rgb(255, 64, 64);
-  font-weight: bold;
-}
-
-.container {
-  width: 75%;
-  padding: 20px;
-  margin: 0 auto;
   font-weight: bold;
 }
 
@@ -39,24 +15,6 @@ select {
 }
 .icon:hover {
   color: #14b8a6;
-}
-
-.header {
-  margin: 0 auto;
-  display: block;
-  font-size: 30px;
-  color: #115e59;
-  font-weight: bold;
-  text-align: left;
-}
-
-.subHeader {
-  padding-top: 10px;
-  display: block;
-  font-size: 20px;
-  color: #115e59;
-  font-weight: 400;
-  text-align: left;
 }
 
 .trash-icon {

@@ -9,7 +9,6 @@ import { SortDirection } from './enums/sort-direction';
 export class ContactDataService {
   private mostRecentContactListData: BehaviorSubject<Contact[]> =
     new BehaviorSubject<Contact[]>([]);
-
   public mostRecentContactList: Observable<Contact[]> =
     this.mostRecentContactListData.asObservable();
   private initialContactList: Contact[] = [];
@@ -25,7 +24,7 @@ export class ContactDataService {
 
   public setInitialContactList(data: Contact[]) {
     this.initialContactList = data;
-    this.next(data);
+    this.nextContactList(data);
   }
 
   // assign a value to fullTextString
@@ -46,7 +45,7 @@ export class ContactDataService {
     return result.toLowerCase();
   }
 
-  public next(contactsList: Contact[]): void {
+  public nextContactList(contactsList: Contact[]): void {
     this.mostRecentContactListData.next(contactsList);
   }
 
@@ -54,7 +53,7 @@ export class ContactDataService {
     const data = this.initialContactList.filter((contact) =>
       contact.fullTextString?.includes(searchText.toLowerCase())
     );
-    this.next(data);
+    this.nextContactList(data);
   }
 
   public sort(propertyPath: string, sortDirection: SortDirection) {
@@ -66,7 +65,7 @@ export class ContactDataService {
             this.traverseObject(b, propertyPath)
           )
         );
-        this.next(copyList);
+        this.nextContactList(copyList);
         break;
       case SortDirection.Ascending:
         copyList.sort((a, b) =>
@@ -74,10 +73,10 @@ export class ContactDataService {
             this.traverseObject(a, propertyPath)
           )
         );
-        this.next(copyList);
+        this.nextContactList(copyList);
         break;
       case SortDirection.Descending:
-        this.next(this.initialContactList.slice());
+        this.nextContactList(this.initialContactList.slice());
         break;
       default:
         break;
