@@ -5,21 +5,21 @@
 input:focus {
   outline: none;
 }
-.error-red {
-  color: rgb(255, 64, 64);
-  font-weight: bold;
-}
 
-.icon {
-  color: #115e59;
+.sq-plus {
+  color: #38bdf8;
 }
-.icon:hover {
-  color: #14b8a6;
+.sq-plus:hover {
+  color: #0284c7;
 }
 
 .trash-icon {
-  color: #115e59;
+  color: #ef4444;
 }
 .trash-icon:hover {
-  color: red;
+  color: #b91c1c;
+}
+
+.error-msg {
+  color: #ef4444;
 }
