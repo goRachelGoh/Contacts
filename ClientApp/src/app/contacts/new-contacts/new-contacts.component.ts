@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, FormArray } from '@angular/forms';
-import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { faSquarePlus, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { ContactsService } from '../contacts.service';
 import { Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -68,8 +68,10 @@ export class NewContactsComponent implements OnInit {
     'Wyoming',
   ];
   public faTrashCan = faTrashCan;
+  public faSquarePlus = faSquarePlus;
   public contactForm = new FormGroup({});
   public contact: any;
+  public resultMsg: boolean = false;
   public editMode = false;
   private id: any;
   constructor(
@@ -97,9 +99,8 @@ export class NewContactsComponent implements OnInit {
     if (this.id) {
       this.contactsService
         .updateContact(this.id, this.contactForm.value)
-        .subscribe();
+        .subscribe(() => (this.resultMsg = true));
       this.contactForm.reset();
-      alert('Update Successful!');
     } else {
       this.contactsService
         .findDuplicateContact(this.contactForm.value)
@@ -112,20 +113,18 @@ export class NewContactsComponent implements OnInit {
               ) {
                 delete this.contactForm.errors['isDuplicatedContact'];
                 this.contactForm.updateValueAndValidity();
+              } else {
+                this.contactsService
+                  .addContact(this.contactForm.value)
+                  .subscribe();
+                this.contactForm.reset();
+                this.resultMsg = true;
               }
-              console.log(this.contactForm.errors);
-              this.contactsService
-                .addContact(this.contactForm.value)
-                .subscribe();
-              this.contactForm.reset();
-              alert('Submission Successful!');
             }
           } else {
             this.contactForm.setErrors(response);
-            console.log(response);
           }
         });
-      console.log(this.contactForm.value);
     }
   }
 
@@ -134,10 +133,7 @@ export class NewContactsComponent implements OnInit {
       streetAddress: [address?.streetAddress ?? '', Validators.required],
       city: [address?.city ?? '', Validators.required],
       state: [address?.state ?? '', Validators.required],
-      zipcode: [
-        address?.zipCode ?? '',
-        [Validators.maxLength(5), Validators.pattern('^[0-9]+')],
-      ], //5 number
+      zipcode: [address?.zipCode ?? '', [Validators.required]],
     });
 
     if (this.editMode) {
@@ -168,7 +164,7 @@ export class NewContactsComponent implements OnInit {
         phone?.phoneNumber ?? '',
         [
           Validators.required,
-          Validators.pattern('^[0-9]{10,}'),
+          Validators.pattern('^[0-9]{1,}'),
           this.isDuplicatedPhoneNumber,
         ],
       ],
@@ -193,18 +189,24 @@ export class NewContactsComponent implements OnInit {
 
   public addAddress() {
     const addresses = this.contactForm.get('addresses') as FormArray;
-    addresses.push(this.buildAddressForm());
+    if (addresses.length < 3) {
+      addresses.push(this.buildAddressForm());
+    }
   }
 
   public deleteEmail(index: any) {
     const emailAddresses = this.contactForm.get('emailAddresses') as FormArray;
     emailAddresses.removeAt(index);
-    console.log(emailAddresses.value);
   }
 
   public deletePhoneNumber(index: any) {
     const phoneNumbers = this.contactForm.get('phoneNumbers') as FormArray;
     phoneNumbers.removeAt(index);
+  }
+
+  public deleteAddress(index: any) {
+    const addresses = this.contactForm.get('addresses') as FormArray;
+    addresses.removeAt(index);
   }
 
   public isDuplicatedPhoneNumber(input: FormControl) {
@@ -227,15 +229,9 @@ export class NewContactsComponent implements OnInit {
 
   private initForm(contact?: Contact) {
     this.contactForm = this.formBuilder.group({
-      firstName: [
-        contact?.firstName ?? '',
-        [Validators.required, Validators.pattern('^[a-zA-Z\\-]+')],
-      ],
-      lastName: [
-        contact?.lastName ?? '',
-        [Validators.required, Validators.pattern('^[a-zA-Z\\-]+')],
-      ],
-      company: [contact?.company ?? ''],
+      firstName: [contact?.firstName ?? '', [Validators.required]],
+      lastName: [contact?.lastName ?? '', [Validators.required]],
+      company: [contact?.company ?? '', [Validators.required]],
       addresses: this.formBuilder.array(
         contact?.addresses?.map((a) => this.buildAddressForm(a)) ?? [
           this.buildAddressForm(),
