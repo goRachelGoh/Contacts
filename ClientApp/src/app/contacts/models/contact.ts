@@ -7,6 +7,7 @@ export interface Contact {
   firstName?: string;
   lastName?: string;
   company?: string;
+  title?: string;
   addresses: Address[];
   emailAddresses?: Email[];
   phoneNumbers?: Phone[];

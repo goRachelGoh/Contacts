@@ -88,7 +88,6 @@ export class NewContactsComponent implements OnInit {
         .getContactById(this.id)
         .subscribe((data) => {
           this.initForm(data);
-          console.log(data); // this data has IDs
         });
     } else {
       this.initForm();
@@ -97,9 +96,12 @@ export class NewContactsComponent implements OnInit {
 
   onSubmit() {
     if (this.id) {
+      console.log(this.contactForm.value);
       this.contactsService
         .updateContact(this.id, this.contactForm.value)
-        .subscribe(() => (this.resultMsg = true));
+        .subscribe(() => {
+          this.resultMsg = true;
+        });
       this.contactForm.reset();
     } else {
       this.contactsService
@@ -136,7 +138,7 @@ export class NewContactsComponent implements OnInit {
       zipcode: [address?.zipCode ?? '', [Validators.required]],
     });
 
-    if (this.editMode) {
+    if (this.editMode && address?.id) {
       editForm.addControl('id', new FormControl(address?.id));
     }
     return editForm;
@@ -151,7 +153,7 @@ export class NewContactsComponent implements OnInit {
       ],
     });
 
-    if (this.editMode) {
+    if (this.editMode && email?.id) {
       editForm.addControl('id', new FormControl(email?.id));
     }
     return editForm;
@@ -170,7 +172,7 @@ export class NewContactsComponent implements OnInit {
       ],
     });
 
-    if (this.editMode) {
+    if (this.editMode && phone?.id) {
       editForm.addControl('id', new FormControl(phone?.id));
     }
     return editForm;
@@ -232,6 +234,7 @@ export class NewContactsComponent implements OnInit {
       firstName: [contact?.firstName ?? '', [Validators.required]],
       lastName: [contact?.lastName ?? '', [Validators.required]],
       company: [contact?.company ?? '', [Validators.required]],
+      title: [contact?.title ?? ''],
       addresses: this.formBuilder.array(
         contact?.addresses?.map((a) => this.buildAddressForm(a)) ?? [
           this.buildAddressForm(),
