@@ -1,46 +1,47 @@
-<div class="p-5">
-  <div class="flex flex-row justify-between">
-    <div class="flex flex-row">
-      <button class="p-2">
-        <fa-icon
-          [icon]="faPencil"
-          class="fa-lg icon"
-          (click)="onClickEditor(contact.id)"
-        ></fa-icon>
-      </button>
-      <button class="p-2">
-        <fa-icon
-          [icon]="faTrashCan"
-          class="fa-lg icon"
-          (click)="onDelete(contact)"
-        ></fa-icon>
-      </button>
+<div class="flex flex-row justify-start pt-2">
+  <button
+    type="button"
+    class="px-3 py-2 rounded-lg text-slate-50 text-bold bg-sky-400 hover:bg-sky-600 focus:outline-none focus:ring focus:ring-sky-200"
+    (click)="onClickEditor(contact.id)"
+  >
+    Edit
+  </button>
+  <span class="px-1"></span>
+  <button
+    type="button"
+    class="px-3 py-2 rounded-lg text-slate-50 text-bold bg-red-500 hover:bg-red-700 focus:outline-none focus:ring focus:ring-red-200"
+    (click)="onDelete(contact)"
+  >
+    Delete
+  </button>
+</div>
+
+<div class="text-xl text-center">Picture goes here later</div>
+<h1 class="pt-3 text-xl text-center font-semibold">
+  {{ contact?.firstName }} {{ contact?.lastName }}
+</h1>
+<h4 class="text-base text-center">
+  {{ contact?.title }} at {{ contact?.company }}
+</h4>
+
+<div class="flex flex-row justify-around">
+  <div class="flex flex-col item-column">
+    <div class="column-header">ADDRESS</div>
+    <div *ngFor="let subItem of contact?.addresses" class="per-item">
+      <div>{{ subItem?.streetAddress }}</div>
+      <div>{{ subItem?.city }} {{ subItem?.state }} {{ subItem?.zipCode }}</div>
     </div>
   </div>
-
-  <div class="subHeader">Picture goes here later</div>
-  <h2 class="header">{{ contact?.firstName }} {{ contact?.lastName }}</h2>
-  <div class="subHeader" *ngIf="contact?.company === ''">N/A</div>
-  <div class="subHeader">{{ contact?.company }}</div>
-  <div class="flex flex-row justify-around">
-    <div class="flex flex-col item-column">
-      <div class="column-header">ADDRESS</div>
-      <div *ngFor="let subItem of contact?.addresses" class="per-item">
-        <div>{{ subItem?.streetAddress }}</div>
-        <div>
-          {{ subItem?.city }} {{ subItem?.state }} {{ subItem?.zipCode }}
-        </div>
-      </div>
-    </div>
-    <div class="flex flex-col item-column">
-      <div class="column-header">E-MAIL</div>
+  <section class="flex flex-row">
+    <details open class="flex flex-col">
+      <summary>E-mail</summary>
       <div *ngFor="let subItem of contact?.emailAddresses" class="per-item">
         <div>{{ subItem?.emailAddress }}</div>
       </div>
-      <div class="column-header">MOBILE</div>
-      <div *ngFor="let subItem of contact?.phoneNumbers" class="per-item">
-        <div>{{ subItem?.phoneNumber }}</div>
-      </div>
+    </details>
+    <div class="column-header">MOBILE</div>
+    <div *ngFor="let subItem of contact?.phoneNumbers" class="per-item">
+      <div>{{ subItem?.phoneNumber }}</div>
     </div>
-  </div>
+  </section>
 </div>
