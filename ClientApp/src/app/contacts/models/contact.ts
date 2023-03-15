@@ -8,6 +8,9 @@ export interface Contact {
   lastName?: string;
   company?: string;
   title?: string;
+  imageName?: '';
+  imageSrc?: '';
+  imageFile?: File;
   addresses: Address[];
   emailAddresses?: Email[];
   phoneNumbers?: Phone[];
