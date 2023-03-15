@@ -36,6 +36,13 @@
   <h1 class="text-lg text-center font-semibold py-4">
     {{ editMode == true ? "Update Contact" : "New Contact " }}
   </h1>
+  <section>
+    <img
+      src="{{ contactForm.get('imageSrc')?.value }}"
+      alt="imageSrc"
+      class="image-card"
+    />
+  </section>
   <section class="flex flex-row w-full pb-6">
     <section class="flex flex-col w-1/2 pr-6">
       <label for="firstname" class="font-medium">First Name</label>
@@ -315,5 +322,16 @@
         </small>
       </div>
     </section>
+  </section>
+  <section>
+    <input
+      class="file-input"
+      type="file"
+      accept="image/*"
+      (change)="onFileChanged($event)"
+      #fileInput
+    />
+    {{ imageFile?.name || "No file uploaded yet." }}
+    <button type="button" (click)="fileInput.click()">Select File</button>
   </section>
 </form>

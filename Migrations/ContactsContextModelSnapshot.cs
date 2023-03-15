@@ -59,6 +59,9 @@ namespace Contacts.Migrations
                     b.Property<string>("FirstName")
                         .HasColumnType("longtext");
 
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("longblob");
+
                     b.Property<string>("LastName")
                         .HasColumnType("longtext");
 

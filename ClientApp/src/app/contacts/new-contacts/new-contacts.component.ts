@@ -74,6 +74,9 @@ export class NewContactsComponent implements OnInit {
   public resultMsg: boolean = false;
   public editMode = false;
   private id: any;
+  public imageFile?: File;
+  public defaultImgSrc = '../../../assets/img_placeholder.jpg';
+
   constructor(
     private activatedroute: ActivatedRoute,
     private contactsService: ContactsService,
@@ -128,6 +131,19 @@ export class NewContactsComponent implements OnInit {
           }
         });
     }
+  }
+
+  // Sets File Object in the Contact Form upon User Selection
+  onFileChanged(event: any) {
+    this.imageFile = event.target.files[0];
+    this.contactForm.get('image')?.setValue(event.target.files[0]);
+
+    const reader = new FileReader();
+    reader.onload = (x) => {
+      this.contactForm.get('imageSrc')?.setValue(x.target?.result);
+    };
+    reader.readAsDataURL(this.imageFile!);
+    console.log(this.imageFile);
   }
 
   private buildAddressForm(address?: Address): FormGroup {
@@ -235,6 +251,9 @@ export class NewContactsComponent implements OnInit {
       lastName: [contact?.lastName ?? '', [Validators.required]],
       company: [contact?.company ?? '', [Validators.required]],
       title: [contact?.title ?? ''],
+      imageName: [contact?.imageName ?? ''],
+      imageSrc: [contact?.imageSrc ?? this.defaultImgSrc], // for preview
+      imageFile: [],
       addresses: this.formBuilder.array(
         contact?.addresses?.map((a) => this.buildAddressForm(a)) ?? [
           this.buildAddressForm(),

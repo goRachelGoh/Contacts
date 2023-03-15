@@ -23,3 +23,16 @@ input:focus {
 .error-msg {
   color: #ef4444;
 }
+
+.file-input {
+  display: none;
+}
+
+.image-card {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+  margin: auto;
+  border-radius: 50%;
+  padding: 8px;
+}
